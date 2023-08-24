@@ -1,0 +1,5 @@
+include ':common'
+include ':api'
+include ':construction'
+include ':app'
+rootProject.name = "OpenCNC"

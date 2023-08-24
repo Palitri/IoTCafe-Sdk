@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenIoT.Lib", "OpenIoT.Lib\OpenIoT.Lib.csproj", "{5DE0CEFC-BB85-4530-94C2-5FEA91B06A85}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenIoT.App", "OpenIoT.App\OpenIoT.App.csproj", "{E2B23F4E-067A-49D5-8982-DDEF93B69520}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenUI.Lib", "OpenUI.Lib\OpenUI.Lib.csproj", "{83376E9B-72EB-4A2B-9E2F-C15098C9B9C5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PropertyModel.Lib", "PropertyModel.Lib\PropertyModel.Lib.csproj", "{CE6ECCD5-F9E7-4CAB-B45C-32DCBB01E065}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5DE0CEFC-BB85-4530-94C2-5FEA91B06A85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DE0CEFC-BB85-4530-94C2-5FEA91B06A85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DE0CEFC-BB85-4530-94C2-5FEA91B06A85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DE0CEFC-BB85-4530-94C2-5FEA91B06A85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2B23F4E-067A-49D5-8982-DDEF93B69520}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2B23F4E-067A-49D5-8982-DDEF93B69520}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2B23F4E-067A-49D5-8982-DDEF93B69520}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2B23F4E-067A-49D5-8982-DDEF93B69520}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83376E9B-72EB-4A2B-9E2F-C15098C9B9C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83376E9B-72EB-4A2B-9E2F-C15098C9B9C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83376E9B-72EB-4A2B-9E2F-C15098C9B9C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83376E9B-72EB-4A2B-9E2F-C15098C9B9C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE6ECCD5-F9E7-4CAB-B45C-32DCBB01E065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE6ECCD5-F9E7-4CAB-B45C-32DCBB01E065}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE6ECCD5-F9E7-4CAB-B45C-32DCBB01E065}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE6ECCD5-F9E7-4CAB-B45C-32DCBB01E065}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DAB9B263-53C2-420C-90DE-F60C6222377F}
+	EndGlobalSection
+EndGlobal

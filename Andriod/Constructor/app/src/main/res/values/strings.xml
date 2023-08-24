@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">OpenIoT</string>
+
+    <string name="button_ok">OK</string>
+    <string name="button_set">Set</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_enable">Enable</string>
+    <string name="button_login">Login</string>
+
+    <string name="bluetooth_enable_title">Enable Bluetooth</string>
+    <string name="bluetooth_enable_question">Bluetooth needs to be turned on in order to connect to the device. Do you want to enable Bluetooth?</string>
+    <string name="bluetooth_enable_not_supported">Bluetooth is not supported. The app will now close.</string>
+
+    <string name="unit_seconds">seconds</string>
+    <string name="unit_seconds_med">sec</string>
+    <string name="unit_seconds_short">s</string>
+    <string name="unit_minutes">minutes</string>
+    <string name="unit_minutes_med">min</string>
+    <string name="unit_minutes_short">m</string>
+    <string name="unit_hours">hours</string>
+    <string name="unit_hours_med">hr</string>
+    <string name="unit_hours_short">h</string>
+    <string name="unit_days">days</string>
+    <string name="unit_days_med">days</string>
+    <string name="unit_days_short">d</string>
+    <string name="unit_boolean_true">On</string>
+    <string name="unit_boolean_false">Off</string>
+
+    <string name="event_logic_reset">Board logic reset</string>
+    <string name="event_scheme_logic_uploaded">Scheme logic uploaded successfully</string>
+    <string name="event_program_logic_uploaded">Code logic uploaded successfully</string>
+    <string name="event_properties_subscription_reset">Subscription reset</string>
+    <string name="event_preset_saved">Preset %1$s saved</string>
+    <string name="event_preset_deleted">Preset %1$s deleted</string>
+    <string name="event_preset_updated">Preset %1$s updated</string>
+    <string name="event_preset_renamed">Preset %1$s renamed</string>
+
+    <string name="preset_rename_title">Change preset name</string>
+    <string name="preset_new_default_name">New preset</string>
+
+
+    <string name="please_load_project">Please load a project</string>
+    <string name="title_activity_login">Log in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_username">User name</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_title_login">Log in</string>
+
+    <string name="component_wait_text">Please wait...</string>
+
+    <string name="title_set_device_name">Set device name</string>
+
+</resources>

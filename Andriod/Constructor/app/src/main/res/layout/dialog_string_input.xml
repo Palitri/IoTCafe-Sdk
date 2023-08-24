@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/rounded_dialog_box"
+    android:layout_margin="10dp"
+    >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:text="Prop name"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:id="@+id/tvName"
+            />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="25dp"
+            android:layout_margin="25dp"
+            />
+
+        <RelativeLayout
+            android:id="@+id/rlButtons"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            >
+
+                <Button
+                    android:id="@+id/bCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_cancel"
+                    android:padding="25dp"
+                    android:layout_alignParentStart="true"
+                    />
+
+                <Button
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:id="@+id/bOK"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_set"
+                    android:padding="25dp"
+                    android:layout_alignParentEnd="true"
+                    />
+
+        </RelativeLayout>
+
+</LinearLayout>

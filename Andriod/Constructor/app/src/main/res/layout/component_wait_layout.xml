@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<layout xmlns:android="http://schemas.android.com/apk/res/android">-->
+<!--    <data>-->
+<!--        <variable name="var_wait_text" type="java.lang.String"/>-->
+<!--    </data>-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            >
+
+            <ImageView
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:tint="@color/colorBackgroundText"
+                android:src="@drawable/ic_baseline_access_time_24"
+                />
+
+<!--            <animated-vector xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--                android:drawable="@drawable/ic_baseline_change_circle_24">-->
+<!--                <target-->
+<!--                    android:name="rotationGroup"-->
+<!--                    android:animation="@animator/rotation" />-->
+<!--            </animated-vector>-->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorBackgroundText"
+                android:text="@string/component_wait_text"
+                />
+
+        </LinearLayout>
+    </RelativeLayout>
+<!--</layout>-->

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "701057153966",
+    "project_id": "ocnc-7c963",
+    "storage_bucket": "ocnc-7c963.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701057153966:android:b76435280718372a31263f",
+        "android_client_info": {
+          "package_name": "com.palitri.opencnc.constructor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "701057153966-f4rj8mh1u8or3eh44p9nrqq5gj7pf76g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwytry30jNaWd9BGSSzEoh5dQ5lCTjPkQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "701057153966-f4rj8mh1u8or3eh44p9nrqq5gj7pf76g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

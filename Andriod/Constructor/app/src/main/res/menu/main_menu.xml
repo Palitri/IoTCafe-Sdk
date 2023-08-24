@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_item_presets"
+        android:icon="@drawable/ic_baseline_checklist_rtl_24"
+        android:title="Presets"
+        app:showAsAction="always" >
+
+        <menu>
+        </menu>
+
+    </item>
+
+    <item android:id="@+id/menu_item_main"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        android:title=""
+        app:showAsAction="always"
+        >
+
+        <menu>
+            <item android:id="@+id/menu_item_update_credentials"
+                android:icon="@drawable/ic_account"
+                app:showAsAction="always"
+                android:title="Login" />
+
+            <item android:id="@+id/menu_item_projects_list"
+                android:icon="@drawable/ic_baseline_lightbulb_24"
+                app:showAsAction="always"
+                android:title="Projects" />
+
+            <item android:id="@+id/menu_item_presets_list"
+                android:icon="@drawable/ic_baseline_checklist_rtl_24"
+                app:showAsAction="always"
+                android:title="Presets" />
+
+            <item android:id="@+id/menu_item_name"
+                android:icon="@drawable/ic_baseline_edit_24"
+                app:showAsAction="always"
+                android:title="Device name" />
+
+            <item android:id="@+id/menu_item_info"
+                android:icon="@drawable/ic_info"
+                app:showAsAction="always"
+                android:title="Device info" />
+
+            <item android:id="@+id/menu_item_bluetooth_list"
+                android:icon="@drawable/ic_baseline_bluetooth_24"
+                app:showAsAction="always"
+                android:title="Devices" />
+        </menu>
+
+    </item>
+
+
+</menu>
