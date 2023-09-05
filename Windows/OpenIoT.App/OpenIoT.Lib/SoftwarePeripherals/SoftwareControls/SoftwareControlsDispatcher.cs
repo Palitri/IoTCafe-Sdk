@@ -28,5 +28,15 @@ namespace OpenIoT.Lib.SoftwarePeripherals.SoftwareControls
         {
             return new WindowsAudioControls(this.handle);
         }
+
+        public ICursorControls CreateCursorControls()
+        {
+            return new WindowsCursorControls();
+        }
+
+        public ICommandControl CreateCommandControl()
+        {
+            return new WindowsCommandControl();
+        }
     }
 }

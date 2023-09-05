@@ -17,19 +17,44 @@ namespace OpenIoT.Lib.SoftwarePeripherals.Peripherals
 
         private BoardProperty volumeProperty;
 
+        private SoftwareControlsDispatcher softwareControlsDispatcher;
+        private Peripheral boardPeripheral;
+
         public VolumePeripheral(SoftwareControlsDispatcher softwareControlsDispatcher, Peripheral boardPeripheral)
         {
-            this.audioControls = softwareControlsDispatcher.CreateAudioControls();
+            this.softwareControlsDispatcher = softwareControlsDispatcher;
+            this.boardPeripheral = boardPeripheral;
 
-            this.volumeProperty = softwareControlsDispatcher.GetBoard().properties.FirstOrDefault(p => p.semantic == boardPeripheral.Properties[0].Semantic);
+            this.audioControls = softwareControlsDispatcher.CreateAudioControls();
         }
 
         public void Update()
         {
+            //WinAPIVolume.Instance.SetVolume(this.volumeProperty.GetFloat());
+
+            //return;
+
             if (this.volumeProperty != null)
             {
-                this.audioControls.ChangeVolume((int)(this.volumeProperty.GetFloat() * 100) - 50);
+                //int newVolumeValue = (int)(this.volumeProperty.GetFloat() * 50.0f);
+                //int delta = newVolumeValue - this.volumeValue;
+                //if (delta != 0)
+                //{
+                //    this.audioControls.ChangeVolume(delta);
+
+                //    this.volumeValue = newVolumeValue;
+                //}
+
+
+                this.audioControls.SetVolume(this.volumeProperty.GetFloat());
             }
+            else
+            {
+                // This should be in constructor, but at the time of construction, the OpenIoTBoard object has not yet populated its properties, because it gets them by a request to the physical board
+                if (softwareControlsDispatcher.GetBoard().properties != null)
+                    this.volumeProperty = softwareControlsDispatcher.GetBoard().properties.FirstOrDefault(p => p.semantic == boardPeripheral.Properties[0].Semantic);
+            }
+
         }
     }
 }

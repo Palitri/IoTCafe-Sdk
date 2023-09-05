@@ -37,7 +37,9 @@ namespace OpenIoT.App.Forms
             AppBase.Instance.Board.OnConnected += this.OnBoardConnected;
             AppBase.Instance.Board.OnDisconnected += this.OnBoardDisconnected;
 
-            AppBase.Instance.Board.SoftwarePeripherals = new SoftwarePeripheralsManager(new SoftwareControlsDispatcher(this.Handle, AppBase.Instance.Board.boardDevice));
+
+            // TODO: Rework all this handle and software dispather stuff
+            AppBase.Instance.Board.Handle = this.Handle;
 
 
             this.scanner = new BoardScanner();

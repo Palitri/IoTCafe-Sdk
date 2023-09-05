@@ -6,6 +6,7 @@ using OpenIoT.Lib.Board.Scanner;
 using OpenIoT.Lib.Board.Transmission;
 using OpenIoT.Lib.Board.Transmission.Com;
 using OpenIoT.Lib.SoftwarePeripherals;
+using OpenIoT.Lib.SoftwarePeripherals.SoftwareControls;
 using OpenIoT.Lib.Tools.Persistence;
 using OpenIoT.Lib.Tools.Threading;
 using OpenIoT.Lib.Tools.Utils;
@@ -15,6 +16,7 @@ using OpenIoT.Lib.Web.Models.Configurations.Project;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -26,6 +28,8 @@ namespace OpenIoT.Lib.Composite
 
     public class CompositeBoard : OpenIoTProtocolEventsHandler, IDisposable
     {
+        public IntPtr Handle { get; set; }
+
         public OpenIoTBoard boardDevice;
         //public BluetoothManager bluetoothManager = null;
         //public ITransmissionChannel transmissionChannel;
@@ -40,7 +44,9 @@ namespace OpenIoT.Lib.Composite
 
         public CompositeBoardPersistence persistence;
 
-        private ContinuousThread? backgroundThread;
+        private ContinuousThread? portsScannerThread;
+
+        private ContinuousThread? softwarePeripheralsThread;
 
         public OnConnected OnConnected;
         public OnDisconnected OnDisconnected;
@@ -69,8 +75,11 @@ namespace OpenIoT.Lib.Composite
 
             this.boardDevice = new OpenIoTBoard();
 
-            this.backgroundThread = new ContinuousThread(this.AutoConnectPortTask, 100);
-            //this.backgroundThread.Start();
+            this.portsScannerThread = new ContinuousThread(this.AutoConnectPortTask, 100);
+            //this.portsScannerThre.Start();
+
+            this.softwarePeripheralsThread = new ContinuousThread(this.UpdateSoftwarePeripheralsTask, 100);
+            this.softwarePeripheralsThread.Start();
 
             this.eventHandlers = new List<IPropertyTransmissionProtocolEvents>();
 
@@ -117,6 +126,9 @@ namespace OpenIoT.Lib.Composite
 
             this.IsConnected = true;
             this.onConnected(boardDevice);
+
+
+            this.SoftwarePeripherals = new SoftwarePeripheralsManager(new SoftwareControlsDispatcher(this.Handle, this.boardDevice));
         }
 
         public void DisconnectFromBoard()
@@ -248,6 +260,25 @@ namespace OpenIoT.Lib.Composite
             }
         }
 
+        public bool UpdateSoftwarePeripheralsTask()
+        {
+            try
+            {
+                if (this.SoftwarePeripherals != null)
+                    this.SoftwarePeripherals.Update();
+
+                Thread.Sleep(100);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
+
+
 
         private List<CompositeProperty> GetVisibleProperties()
         {
@@ -331,7 +362,9 @@ namespace OpenIoT.Lib.Composite
 
         public void Dispose()
         {
-            this.backgroundThread.Terminate(true);
+            this.portsScannerThread.Terminate(true);
+
+            this.softwarePeripheralsThread.Terminate(true);
         }
 
     }

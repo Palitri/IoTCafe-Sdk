@@ -231,9 +231,14 @@ namespace OpenIoT.Lib.Board.Models
             return (bool)this.value;
         }
 
-        public string GetString()
+        public string GetDataString()
         {
             return StringUtils.BytesToHex((byte[])this.value);
+        }
+
+        public string GetString()
+        {
+            return StringUtils.BytesToString((byte[])this.value);
         }
     }
 

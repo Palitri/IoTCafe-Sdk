@@ -9,8 +9,9 @@ namespace OpenIoT.Lib.Web.Models.Configurations.Project
 {
     public class Peripheral
     {
-        [JsonPropertyName("Id")]
+        [JsonPropertyName("id")]
         public string ScriptId { get; set; }
+        [JsonPropertyName("peripheralTypeId")]
         public string TypeId { get; set; }
         public string Name { get; set; }
 

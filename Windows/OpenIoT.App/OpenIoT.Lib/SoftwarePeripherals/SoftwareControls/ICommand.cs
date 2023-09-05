@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace OpenIoT.Lib.SoftwarePeripherals.SoftwareControls
 {
-    public interface IAudioControls
+    public interface ICommandControl
     {
-        void SetVolume(float volume);
-        void ChangeVolume(int change);
-        void ChangeMute();
+        void Run(string command);
     }
 }

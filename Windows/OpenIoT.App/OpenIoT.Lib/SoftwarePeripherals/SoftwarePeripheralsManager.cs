@@ -1,8 +1,10 @@
-﻿using OpenIoT.Lib.SoftwarePeripherals.SoftwareControls;
+﻿using OpenIoT.Lib.SoftwarePeripherals.Peripherals;
+using OpenIoT.Lib.SoftwarePeripherals.SoftwareControls;
 using OpenIoT.Lib.Web.Models.Configurations.Project;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -24,9 +26,14 @@ namespace OpenIoT.Lib.SoftwarePeripherals
 
             this.softwarePeripherals = new List<ISoftwarePeripheral>();
             this.softwarePeripheralDispatchers = new List<ISoftwarePeripheralDispatcher>();
+
+            this.AddPeripheralDispatcher(new VolumePeripheralDispatcher());
+            this.AddPeripheralDispatcher(new CursorPeripheralDispatcher());
+            this.AddPeripheralDispatcher(new CommandPeripheralDispatcher());
+
         }
 
-        public void AddDispatcher(ISoftwarePeripheralDispatcher dispatcher)
+        public void AddPeripheralDispatcher(ISoftwarePeripheralDispatcher dispatcher)
         {
             this.softwarePeripheralDispatchers.Add(dispatcher); 
         }

@@ -26,7 +26,7 @@ namespace OpenIoT.Lib.Tools.Utils
 
         public static string BytesToHex(byte[] bytesArray)
         {
-            return Convert.ToHexString(bytesArray);
+            return Convert.ToHexString(bytesArray).TrimEnd('\0');
         }
 
         public static byte[] HexToBytes(string hexString)
