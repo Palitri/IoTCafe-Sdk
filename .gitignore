@@ -1,3 +1,5 @@
 bin
 .vs
 obj
+/Windows/OpenIoT.App/OpenIoT.App.Installer/Release/OpenIoT.App.Installer.msi
+/Windows/OpenIoT.App/OpenIoT.App.Installer/Release/setup.exe

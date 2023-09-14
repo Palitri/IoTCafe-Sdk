@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenUI.Lib", "OpenUI.Lib\Op
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PropertyModel.Lib", "PropertyModel.Lib\PropertyModel.Lib.csproj", "{CE6ECCD5-F9E7-4CAB-B45C-32DCBB01E065}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "OpenIoT.App.Installer", "OpenIoT.App.Installer\OpenIoT.App.Installer.vdproj", "{E019ABD3-A943-42B5-9870-FF0C51CAD257}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,8 @@ Global
 		{CE6ECCD5-F9E7-4CAB-B45C-32DCBB01E065}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE6ECCD5-F9E7-4CAB-B45C-32DCBB01E065}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE6ECCD5-F9E7-4CAB-B45C-32DCBB01E065}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E019ABD3-A943-42B5-9870-FF0C51CAD257}.Debug|Any CPU.ActiveCfg = Debug
+		{E019ABD3-A943-42B5-9870-FF0C51CAD257}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
