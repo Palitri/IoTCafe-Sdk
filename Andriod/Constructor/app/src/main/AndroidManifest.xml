@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.palitri.openiot.constructor">
+    package="com.palitri.iotcafe">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.palitri.openiot.constructor.ConstructorApplication"
+        android:name="com.palitri.iotcafe.IoTCafeApplication"
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@drawable/ic_openiot_logo"
@@ -15,13 +15,13 @@
         android:roundIcon="@drawable/ic_openiot_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.palitri.openiot.constructor.activities.SelectPresetActivity"></activity>
-        <activity android:name="com.palitri.openiot.constructor.activities.SelectBluetoothActivity" />
+        <activity android:name="com.palitri.iotcafe.activities.SelectPresetActivity"></activity>
+        <activity android:name="com.palitri.iotcafe.activities.SelectBluetoothActivity" />
         <activity
-            android:name="com.palitri.openiot.constructor.activities.LoginActivity"
+            android:name="com.palitri.iotcafe.activities.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name="com.palitri.openiot.constructor.activities.SelectProjectActivity" />
-        <activity android:name="com.palitri.openiot.constructor.activities.MainActivity">
+        <activity android:name="com.palitri.iotcafe.activities.SelectProjectActivity" />
+        <activity android:name="com.palitri.iotcafe.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +30,7 @@
         </activity>
 
         <service
-            android:name="com.palitri.openiot.constructor.notifications.NotificationsService"
+            android:name="com.palitri.iotcafe.notifications.NotificationsService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

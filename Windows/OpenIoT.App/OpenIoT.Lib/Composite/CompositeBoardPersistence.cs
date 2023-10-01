@@ -3,6 +3,7 @@ using OpenIoT.Lib.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,6 +18,9 @@ namespace OpenIoT.Lib.Composite
             this.persistence = persistence;
         }
 
+        public bool IsProjectSelected { get { return this.GetProject() != null; } }
+
+        public bool IsUserLogged { get { return !String.IsNullOrWhiteSpace(this.getToken()); } }
 
 
         public void setToken(String token)

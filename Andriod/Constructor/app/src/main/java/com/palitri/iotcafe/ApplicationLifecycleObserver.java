@@ -1,4 +1,4 @@
-package com.palitri.openiot.constructor;
+package com.palitri.iotcafe;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.DefaultLifecycleObserver;
@@ -6,9 +6,9 @@ import androidx.lifecycle.LifecycleOwner;
 
 public class ApplicationLifecycleObserver implements DefaultLifecycleObserver
 {
-    private ConstructorApplication app;
+    private IoTCafeApplication app;
 
-    public ApplicationLifecycleObserver(ConstructorApplication app)
+    public ApplicationLifecycleObserver(IoTCafeApplication app)
     {
         this.app = app;
     }
@@ -21,6 +21,6 @@ public class ApplicationLifecycleObserver implements DefaultLifecycleObserver
 
     @Override
     public void onStop(@NonNull LifecycleOwner owner) {
-        this.app.getBoard().boardDevice.Close();
+        this.app.getBoard().DisconnectFromBoard();
     }
 }

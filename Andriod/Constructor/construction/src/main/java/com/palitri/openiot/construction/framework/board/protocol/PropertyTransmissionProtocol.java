@@ -2,9 +2,7 @@ package com.palitri.openiot.construction.framework.board.protocol;
 
 import com.palitri.openiot.construction.framework.board.models.BoardProperty;
 import com.palitri.openiot.construction.framework.board.models.BoardPropertyType;
-import com.palitri.openiot.construction.framework.board.protocol.events.IOpenIoTProtocolEvents;
 import com.palitri.openiot.construction.framework.board.protocol.events.IPropertyTransmissionProtocolEvents;
-import com.palitri.openiot.construction.framework.tools.utils.ArrayUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;

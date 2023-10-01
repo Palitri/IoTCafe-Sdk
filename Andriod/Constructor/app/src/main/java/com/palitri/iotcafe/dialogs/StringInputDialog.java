@@ -1,10 +1,9 @@
-package com.palitri.openiot.constructor.dialogs;
+package com.palitri.iotcafe.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -13,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.palitri.openiot.constructor.R;
+import com.palitri.iotcafe.R;
 
 public class StringInputDialog extends Dialog {
 

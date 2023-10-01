@@ -1,4 +1,4 @@
-package com.palitri.openiot.constructor.activities;
+package com.palitri.iotcafe.activities;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,9 +13,9 @@ import androidx.annotation.NonNull;
 import com.palitri.openiot.construction.framework.web.api.OpenIotService;
 import com.palitri.openiot.construction.framework.web.models.Preset;
 import com.palitri.openiot.construction.framework.web.models.PresetsCollection;
-import com.palitri.openiot.constructor.R;
-import com.palitri.openiot.constructor.arrayadapters.PresetsArrayAdapter;
-import com.palitri.openiot.constructor.dialogs.StringInputDialog;
+import com.palitri.iotcafe.R;
+import com.palitri.iotcafe.arrayadapters.PresetsArrayAdapter;
+import com.palitri.iotcafe.dialogs.StringInputDialog;
 
 public class SelectPresetActivity extends ActivityBase {
 
@@ -31,7 +31,7 @@ public class SelectPresetActivity extends ActivityBase {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle("Presets");
 
-        final View viewWaitIcon = findViewById(R.id.view_wait_icon);
+        final View viewWaitIcon = findViewById(R.id.view_empty);
         final ListView listProjects = findViewById(R.id.list_presets);
 
         new OpenIotService() {

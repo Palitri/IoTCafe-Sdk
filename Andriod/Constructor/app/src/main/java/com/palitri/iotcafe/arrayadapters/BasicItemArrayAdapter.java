@@ -1,10 +1,10 @@
-package com.palitri.openiot.constructor.arrayadapters;
+package com.palitri.iotcafe.arrayadapters;
 
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
-import com.palitri.openiot.constructor.R;
+import com.palitri.iotcafe.R;
 
 import java.util.ArrayList;
 

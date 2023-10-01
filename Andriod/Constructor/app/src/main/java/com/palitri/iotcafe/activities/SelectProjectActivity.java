@@ -1,4 +1,4 @@
-package com.palitri.openiot.constructor.activities;
+package com.palitri.iotcafe.activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import com.palitri.openiot.construction.framework.web.api.OpenIotService;
 import com.palitri.openiot.construction.framework.web.models.PresetsCollection;
-import com.palitri.openiot.constructor.R;
-import com.palitri.openiot.constructor.arrayadapters.BasicItemArrayAdapter;
+import com.palitri.iotcafe.R;
+import com.palitri.iotcafe.arrayadapters.BasicItemArrayAdapter;
 import com.palitri.openiot.construction.framework.web.models.Project;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class SelectProjectActivity extends ActivityBase {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle("Projects");
 
-        this.viewWaitIcon = findViewById(R.id.view_wait_icon);
+        this.viewWaitIcon = findViewById(R.id.view_empty);
         this.listProjects = findViewById(R.id.list_projects);
 
         this.setWaitMode(true);
@@ -67,7 +67,7 @@ public class SelectProjectActivity extends ActivityBase {
                                         activity.runOnUiThread(new Runnable() {
                                             public void run() {
                                                 activity.getBoard().LoadProject(project, presets);
-                                                activity.FinishActivity(null);
+                                                activity.FinishActivity(null, ActivityResult_OK);
                                             }
                                         });
                                     }

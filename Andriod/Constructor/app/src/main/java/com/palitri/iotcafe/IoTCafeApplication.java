@@ -1,4 +1,4 @@
-package com.palitri.openiot.constructor;
+package com.palitri.iotcafe;
 
 import android.app.Application;
 
@@ -7,7 +7,7 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 import com.palitri.openiot.construction.framework.composite.CompositeBoard;
 
 
-public class ConstructorApplication
+public class IoTCafeApplication
         extends Application
         //implements Application.ActivityLifecycleCallbacks
 {
@@ -46,6 +46,8 @@ public class ConstructorApplication
         super.onCreate();
 
         ProcessLifecycleOwner.get().getLifecycle().addObserver(new ApplicationLifecycleObserver(this));
+
+
     }
 
 //    @Override

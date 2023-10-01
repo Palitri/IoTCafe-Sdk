@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OpenIoT</string>
+    <string name="app_name">IoT.Cafe</string>
 
     <string name="button_ok">OK</string>
     <string name="button_set">Set</string>
@@ -40,6 +40,16 @@
 
 
     <string name="please_load_project">Please load a project</string>
+    <string name="please_login">Please log into your IoT.Cafe account first</string>
+    <string name="login_with_iotcafe_credentials">Login with your <a href="https://iot.cafe">iot.cafe</a> credentials</string>
+    <string name="login_successful">You are now logged in. Thank you!</string>
+    <string name="login_unsuccessful">Invalid login credentials</string>
+    <string name="bluetooth_permission_denied">Bluetooth permission is denied</string>
+    <string name="please_select_bluetooth_device">Please select a bluetooth device to connect</string>
+    <string name="bluetooth_device_connected">Device connected</string>
+    <string name="bluetooth_device_not_found">Cannot find device</string>
+    <string name="bluetooth_device_cannot_connect">Cannot connect to device</string>
+    <string name="bluetooth_device_not_responding">Device is not responding</string>
     <string name="title_activity_login">Log in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_username">User name</string>
@@ -47,6 +57,9 @@
     <string name="action_title_login">Log in</string>
 
     <string name="component_wait_text">Please wait...</string>
+
+    <string name="component_no_project_loaded_text">No project loaded</string>
+    <string name="create_projects_at_iotcafe">Create projects at <br/><a href="https://iot.cafe">https://iot.cafe</a></string>
 
     <string name="title_set_device_name">Set device name</string>
 

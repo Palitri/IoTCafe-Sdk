@@ -1,4 +1,4 @@
-package com.palitri.openiot.constructor.activities;
+package com.palitri.iotcafe.activities;
 
 import android.os.Bundle;
 
@@ -6,11 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.palitri.openiot.construction.framework.tools.utils.StringUtils;
 import com.palitri.openiot.construction.framework.web.api.OpenIotService;
-import com.palitri.openiot.constructor.R;
+import com.palitri.iotcafe.R;
 
 public class LoginActivity extends ActivityBase {
 
@@ -42,13 +41,14 @@ public class LoginActivity extends ActivityBase {
 
                         LoginActivity.this.runOnUiThread(new Runnable() {
                             public void run() {
-                                if (StringUtils.IsNullOrEmpty(token))
-                                    Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
+                                if (StringUtils.IsNullOrEmpty(token)) {
+                                    LoginActivity.this.FinishActivity(null, ActivityResult_Error);
+                                }
                                 else {
                                     LoginActivity.this.LogIn(token);
+                                    LoginActivity.this.FinishActivity(null, ActivityResult_OK);
                                 }
 
-                                finish();
                             }
                         });
                     }

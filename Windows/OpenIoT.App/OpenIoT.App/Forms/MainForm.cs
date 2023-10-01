@@ -159,10 +159,10 @@ namespace OpenIoT.App.Forms
 
         private void projectsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrWhiteSpace(AppBase.Instance.Board.persistence.getToken()))
+            if (!AppBase.Instance.Board.persistence.IsUserLogged)
                 new LoginForm().ShowDialog();
 
-            if (String.IsNullOrWhiteSpace(AppBase.Instance.Board.persistence.getToken()))
+            if (!AppBase.Instance.Board.persistence.IsUserLogged)
                 return;
 
             ProjectSelectForm projectSelectForm = new ProjectSelectForm();
@@ -175,6 +175,12 @@ namespace OpenIoT.App.Forms
 
         private void presetToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!AppBase.Instance.Board.IsConnected)
+            {
+                MessageBox.Show(Resources.DevicePleaseConnect);
+                return;
+            }
+
             string presetId = ((ToolStripMenuItem)sender).Name;
 
             AppBase.Instance.Board.ApplyPreset(AppBase.Instance.Board.persistence.GetPresets().First(p => p.ProjectPresetId == presetId));
@@ -182,6 +188,13 @@ namespace OpenIoT.App.Forms
 
         private void presetsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            if (!AppBase.Instance.Board.persistence.IsProjectSelected)
+            {
+                MessageBox.Show(Resources.PleaseSelectProject);
+                return;
+            }
+
+
             PresetsManagementForm presetsManagementForm = new PresetsManagementForm();
             presetsManagementForm.ShowDialog();
             this.LoadPresetsMenu();
@@ -189,6 +202,12 @@ namespace OpenIoT.App.Forms
 
         private void boardInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!AppBase.Instance.Board.IsConnected)
+            {
+                MessageBox.Show(Resources.DevicePleaseConnect);
+                return;
+            }
+            
             this.isRequestingBoardInfo = true;
 //            AppBase.Instance.Board.boardDevice.requestBoardInfo();
             AppBase.Instance.Board.boardDevice.requestAllDeviceProperties();
@@ -305,6 +324,12 @@ namespace OpenIoT.App.Forms
 
         private void boardNameToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!AppBase.Instance.Board.IsConnected)
+            {
+                MessageBox.Show(Resources.DevicePleaseConnect);
+                return;
+            }
+            
             this.isRequestingBoardName = true;
             AppBase.Instance.Board.boardDevice.requestDeviceName();
         }

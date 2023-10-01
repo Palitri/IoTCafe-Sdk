@@ -4,5 +4,7 @@ public enum CompositeBoardResult {
     None,
     Ok,
     DeviceNotSet,
-    DeviceNotFound
+    DeviceNotFound,
+    DeviceCannotConnect,
+    DeviceNotResponding
 }

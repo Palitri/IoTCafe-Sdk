@@ -1,10 +1,16 @@
 package com.palitri.openiot.construction.framework.board.transmission.bluetooth;
 
+import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.util.Log;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import java.util.Set;
 
@@ -36,6 +42,21 @@ public class BluetoothManager
     {
         Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
         requestingActivity.startActivityForResult(enableBtIntent, activityResultCode);
+    }
+
+    public static boolean isPermitted(Context context, String permission)
+    {
+        return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public static boolean requiresPermissionRationale(Activity activity, String permission)
+    {
+        return ActivityCompat.shouldShowRequestPermissionRationale(activity, permission);
+    }
+
+    public static void requestPermission(Activity activity, String permission, int requestCode)
+    {
+        ActivityCompat.requestPermissions(activity, new String[] { permission }, requestCode);
     }
 
     public void enable()

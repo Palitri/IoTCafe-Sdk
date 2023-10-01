@@ -43,7 +43,7 @@ public class OpenIotService {
         }
                 .setRequestBody("{\"email\":\"" + email + "\",\"password\":\"" + password + "\"}")
                 .setHttpMethod("POST")
-                .send(this.baseUrl + "/users", this);
+                .send(this.baseUrl + "/user/login", this);
     }
 
     private void userLoginResponse(String response, Object... params)
@@ -70,6 +70,8 @@ public class OpenIotService {
     {
 
     }
+
+
 
 
 
@@ -115,6 +117,8 @@ public class OpenIotService {
     {
 
     }
+
+
 
 
 
@@ -166,6 +170,8 @@ public class OpenIotService {
 
 
 
+
+
     public void requestProjectPresets(String projectId)
     {
         new WebRequest(){
@@ -211,6 +217,8 @@ public class OpenIotService {
 
 
 
+
+
     public void requestSaveProjectPreset(String projectId, Preset preset)
     {
         new WebRequest(){
@@ -224,7 +232,7 @@ public class OpenIotService {
         }
                 .setToken(this.token)
                 .setRequestBody(preset.SaveToJSON().toString())
-                .setHttpMethod("PUT")
+                .setHttpMethod("POST")
                 .send(this.baseUrl + "/project/" + projectId + "/presets", this);
     }
 
@@ -249,6 +257,8 @@ public class OpenIotService {
 
 
 
+
+
     public void requestUpdateProjectPreset(Preset preset)
     {
         new WebRequest(){
@@ -262,7 +272,7 @@ public class OpenIotService {
         }
                 .setToken(this.token)
                 .setRequestBody(preset.SaveToJSON().toString())
-                .setHttpMethod("POST")
+                .setHttpMethod("PUT")
                 .send(this.baseUrl + "/project/" + preset.projectId + "/preset/" + preset.projectPresetId, this);
     }
 
@@ -284,6 +294,8 @@ public class OpenIotService {
     {
 
     }
+
+
 
 
 
@@ -319,6 +331,8 @@ public class OpenIotService {
     {
 
     }
+
+
 
 
 

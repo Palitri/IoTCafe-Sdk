@@ -15,13 +15,13 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_BD3B0A39E0DB48859A40825D5E2E7F5C"
+        "MsmKey" = "8:_2D68AE3ADBAA4349AC3E933F40DE4035"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_D3DA42C4EC5549CFB1033A3418036419"
+        "MsmKey" = "8:_BD3B0A39E0DB48859A40825D5E2E7F5C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -50,6 +50,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
         "Release"
@@ -114,9 +122,9 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D3DA42C4EC5549CFB1033A3418036419"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2D68AE3ADBAA4349AC3E933F40DE4035"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\Visuals\\Resources\\Icons\\OpenIoT logo\\openIoT_logo_v2_ico.ico"
+            "SourcePath" = "8:..\\OpenIoT.App\\openIoT_logo_v2_ico.ico"
             "TargetName" = "8:openIoT_logo_v2_ico.ico"
             "Tag" = "8:"
             "Folder" = "8:_C52AD535F50445809C06D477007C5726"
@@ -219,7 +227,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:Installs the OpenIoT App"
         "ARPURLINFOABOUT" = "8:iot.cafe"
-        "ARPPRODUCTICON" = "8:_D3DA42C4EC5549CFB1033A3418036419"
+        "ARPPRODUCTICON" = "8:_2D68AE3ADBAA4349AC3E933F40DE4035"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -333,7 +341,7 @@
             "Target" = "8:_BD3B0A39E0DB48859A40825D5E2E7F5C"
             "Folder" = "8:_6596EAF0744F449381AEF299C692200A"
             "WorkingFolder" = "8:_C52AD535F50445809C06D477007C5726"
-            "Icon" = "8:_D3DA42C4EC5549CFB1033A3418036419"
+            "Icon" = "8:_2D68AE3ADBAA4349AC3E933F40DE4035"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_ADB6224B56D54BBD9E932440A7F84C41"
@@ -347,7 +355,7 @@
             "Target" = "8:_BD3B0A39E0DB48859A40825D5E2E7F5C"
             "Folder" = "8:_F3CAB9D699B14022A67FBFC00231B84F"
             "WorkingFolder" = "8:_C52AD535F50445809C06D477007C5726"
-            "Icon" = "8:_D3DA42C4EC5549CFB1033A3418036419"
+            "Icon" = "8:_2D68AE3ADBAA4349AC3E933F40DE4035"
             "Feature" = "8:"
             }
         }

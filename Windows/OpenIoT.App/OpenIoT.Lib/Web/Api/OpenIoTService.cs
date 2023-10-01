@@ -39,8 +39,8 @@ namespace OpenIoT.Lib.Web.Api
             string response = await new NetworkRequest()
             {
                 RequestBody = "{\"email\":\"" + email + "\",\"password\":\"" + password + "\"}",
-                HttpMethod = "POST",
-            }.SendRequestAsync(this.BaseUrl + "/users");
+                HttpMethod = "POST"
+            }.SendRequestAsync(this.BaseUrl + "/user/login");
 
             UserLogin? userLogin = this.DeserializeJson<UserLogin>(response);
 
@@ -53,7 +53,8 @@ namespace OpenIoT.Lib.Web.Api
         {
             string response = await new NetworkRequest()
             {
-                BearerToken = this.Token
+                BearerToken = this.Token,
+                HttpMethod = "GET"
             }.SendRequestAsync(this.BaseUrl + "/projects");
 
             using (JsonDocument jdoc = JsonDocument.Parse(response))
@@ -68,7 +69,8 @@ namespace OpenIoT.Lib.Web.Api
         {
             string response = await new NetworkRequest()
             {
-                BearerToken = this.Token
+                BearerToken = this.Token,
+                HttpMethod = "GET"
             }.SendRequestAsync(this.BaseUrl + "/project/" + projectId);
 
             using (JsonDocument jdoc = JsonDocument.Parse(response))
@@ -101,7 +103,7 @@ namespace OpenIoT.Lib.Web.Api
             string response = await new NetworkRequest()
             {
                 BearerToken = this.Token,
-                HttpMethod = "PUT",
+                HttpMethod = "POST",
                 RequestBody = this.SerializeObject(preset)
             }.SendRequestAsync(this.BaseUrl + "/project/" + projectId + "/presets");
 
@@ -118,7 +120,7 @@ namespace OpenIoT.Lib.Web.Api
             string response = await new NetworkRequest()
             {
                 BearerToken = this.Token,
-                HttpMethod = "POST",
+                HttpMethod = "PUT",
                 RequestBody = this.SerializeObject(preset)
             }.SendRequestAsync(this.BaseUrl + "/project/" + preset.ProjectId + "/preset/" + preset.ProjectPresetId);
 

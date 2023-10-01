@@ -1,10 +1,4 @@
-package com.palitri.openiot.constructor.activities;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
+package com.palitri.iotcafe.activities;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -20,26 +14,32 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.palitri.iotcafe.R;
+import com.palitri.iotcafe.arrayadapters.PropertiesArrayAdapter;
+import com.palitri.iotcafe.dialogs.StringInputDialog;
 import com.palitri.openiot.construction.framework.board.models.BoardProperty;
-import com.palitri.openiot.construction.framework.board.protocol.events.IOpenIoTProtocolEvents;
 import com.palitri.openiot.construction.framework.board.protocol.events.OpenIoTEventsHandler;
 import com.palitri.openiot.construction.framework.board.transmission.bluetooth.BluetoothManager;
 import com.palitri.openiot.construction.framework.composite.CompositeBoardResult;
 import com.palitri.openiot.construction.framework.tools.utils.ByteUtils;
-import com.palitri.openiot.construction.framework.tools.utils.StringUtils;
 import com.palitri.openiot.construction.framework.web.models.Preset;
-import com.palitri.openiot.constructor.R;
-import com.palitri.openiot.constructor.arrayadapters.PropertiesArrayAdapter;
-import com.palitri.openiot.constructor.dialogs.StringInputDialog;
-
-import java.util.HashMap;
 
 public class MainActivity extends ActivityBase {
     private static final int ActivityResultCode_RequestEnableBluetooth = 1011;
-    private static final int ActivityResultCode_SelectProject = 1012;
-    private static final int ActivityResultCode_SelectBluetooth = 1013;
-    private static final int ActivityResultCode_SelectPreset = 1014;
-    private static final int ActivityResultCode_SetDeviceName = 1015;
+    private static final int ActivityResultCode_Login = 1012;
+    private static final int ActivityResultCode_SelectProject = 1013;
+    private static final int ActivityResultCode_SelectBluetooth = 1014;
+    private static final int ActivityResultCode_SelectPreset = 1015;
+    private static final int ActivityResultCode_SetDeviceName = 1016;
+
+    private static final int PermissionRequestCode_EnableBluetooth = 10101;
 
     public ListView listParams;
     public View waitIconView;
@@ -61,25 +61,64 @@ public class MainActivity extends ActivityBase {
         //getSupportActionBar().setTitle("");
 
 
-        this.waitIconView = findViewById(R.id.view_wait_icon);
+        this.waitIconView = findViewById(R.id.view_empty);
         this.listParams = findViewById(R.id.list_params);
 
-        this.setWaitMode(true);
+        this.showEmptyScreen(true);
 
         this.SetEventsListener();
 //        this.board.boardDevice.Open();
 //        this.board.requestProjectUploadSequence();
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[] { Manifest.permission.BLUETOOTH_CONNECT }, 10101);
+        if (!this.HasBluetoothPermission())
+            this.RequestBluetoothPermission();
+    }
+
+    private boolean HasBluetoothPermission()
+    {
+        return BluetoothManager.isPermitted(this, Manifest.permission.BLUETOOTH_CONNECT);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void RequestBluetoothPermission()
+    {
+        BluetoothManager.requestPermission(this, Manifest.permission.BLUETOOTH_CONNECT, PermissionRequestCode_EnableBluetooth);
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case PermissionRequestCode_EnableBluetooth:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    this.onBluetoothPermissionGranted();
+                } else {
+                    this.onBluetoothPermissionDenied();
+                }
         }
+    }
+
+    private void onBluetoothPermissionGranted()
+    {
 
     }
 
-    public void setWaitMode(boolean isWaiting)
+    private void onBluetoothPermissionDenied()
     {
-        this.waitIconView.setVisibility(isWaiting ? View.VISIBLE :  View.GONE);
-        this.listParams.setVisibility(isWaiting ? View.GONE :  View.VISIBLE);
+        this.showResourceMessage(R.string.bluetooth_permission_denied);
+    }
+
+    public void showEmptyScreen(boolean isWaiting)
+    {
+        MainActivity.this.runOnUiThread(new Runnable() {
+            public void run() {
+                MainActivity.this.waitIconView.setVisibility(isWaiting ? View.VISIBLE :  View.GONE);
+                MainActivity.this.listParams.setVisibility(isWaiting ? View.GONE :  View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -95,24 +134,26 @@ public class MainActivity extends ActivityBase {
     protected void onStart() {
         super.onStart();
 
-        if (!this.board.isBluetoothCapable())
-        {
-            Toast.makeText(getApplicationContext(), getResources().getText(R.string.bluetooth_enable_not_supported), Toast.LENGTH_LONG).show();
+        if (!this.board.isBluetoothCapable()) {
+            this.showResourceMessage(R.string.bluetooth_enable_not_supported);
             this.requestAppClose();
-            return;
         }
 
-        if (!this.board.isBluetoothEnabled())
-        {
+        if (!this.board.isBluetoothEnabled()) {
             this.startActivityEnableBluetooth();
-            return;
         }
 
-        if (!this.board.IsConnected())
-        {
-            if (this.board.ConnectToBoard() != CompositeBoardResult.Ok)
-                this.startActivitySelectBluetooth();
-            return;
+
+        if (!this.board.IsConnected()) {
+            if (this.getBoard().persistence.IsDeviceSelected()) {
+                CompositeBoardResult connectResult = this.board.ConnectToBoard();
+                if (connectResult == CompositeBoardResult.DeviceNotFound)
+                    this.showResourceMessage(R.string.bluetooth_device_not_found);
+                else if (connectResult == CompositeBoardResult.DeviceCannotConnect)
+                    this.showResourceMessage(R.string.bluetooth_device_cannot_connect);
+                else if (connectResult == CompositeBoardResult.DeviceNotResponding)
+                    this.showResourceMessage(R.string.bluetooth_device_not_responding);
+            }
         }
     }
 
@@ -141,46 +182,51 @@ public class MainActivity extends ActivityBase {
         return super.onPrepareOptionsMenu(menu);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int groupId = item.getGroupId();
 
         if (groupId == 1)
         {
-            int presetIndex = item.getItemId();
-            Preset preset = this.board.presets.get(presetIndex);
-            this.board.ApplyPreset(preset);
+            if (!this.board.IsConnected()) {
+                this.showResourceMessage(R.string.please_select_bluetooth_device);
+            }
+            else {
+                int presetIndex = item.getItemId();
+                Preset preset = this.board.presets.get(presetIndex);
+                this.board.ApplyPreset(preset);
+            }
         }
         else {
             switch (item.getItemId()) {
                 case R.id.menu_item_projects_list: {
-                    this.startActivitySelectProject();
+                    this.onMenuSelectProjectSelected();
                     break;
                 }
 
-                case R.id.menu_item_update_credentials: {
-                    this.startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                case R.id.menu_item_login: {
+                    this.onMenuLoginSelected();
                     break;
                 }
 
                 case R.id.menu_item_presets_list: {
-                    this.startActivitySelectPreset();
-
+                    this.onMenuPresetsSelected();
                     break;
                 }
 
                 case R.id.menu_item_name: {
-                    this.board.boardDevice.requestDeviceName();
+                    this.onMenuDeviceNameSelected();
                     break;
                 }
 
                 case R.id.menu_item_info: {
-                    this.board.boardDevice.requestBoardInfo();
+                    this.onMenuDeviceInfoSelected();
                     break;
                 }
 
                 case R.id.menu_item_bluetooth_list: {
-                    this.startActivitySelectBluetooth();
+                    this.onMenuBluetoothListSelected();
                     break;
                 }
             }
@@ -196,59 +242,97 @@ public class MainActivity extends ActivityBase {
 
         switch (requestCode) {
             case ActivityResultCode_RequestEnableBluetooth:
-                this.finishedActivityEnableBluetooth(resultCode == RESULT_OK);
+                this.finishedActivityEnableBluetooth(resultCode);
+                break;
+
+            case ActivityResultCode_Login:
+                this.finishedActivityLogin(resultCode);
                 break;
 
             case ActivityResultCode_SelectProject:
-                this.finishedActivitySelectProject(resultCode == RESULT_OK);
+                this.finishedActivitySelectProject(resultCode);
                 break;
 
             case ActivityResultCode_SelectBluetooth:
-                this.finishedActivitySelectBluetooth(resultCode == RESULT_OK);
+                this.finishedActivitySelectBluetooth(resultCode);
                 break;
 
             case ActivityResultCode_SelectPreset:
-                this.finishedActivitySelectPreset(resultCode == RESULT_OK);
+                this.finishedActivitySelectPreset(resultCode);
                 break;
 
             case ActivityResultCode_SetDeviceName:
-                this.finishedActivitySetDeviceName(resultCode == RESULT_OK);
+                this.finishedActivitySetDeviceName(resultCode);
                 break;
         }
     }
 
-//    // Register the permissions callback, which handles the user's response to the
-//// system permissions dialog. Save the return value, an instance of
-//// ActivityResultLauncher, as an instance variable.
-//    private ActivityResultLauncher<String> requestPermissionLauncher =
-//            registerForActivityResult(new RequestPermission(), isGranted -> {
-//                if (isGranted) {
-//                    // Permission is granted. Continue the action or workflow in your
-//                    // app.
-//                } else {
-//                    // Explain to the user that the feature is unavailable because the
-//                    // features requires a permission that the user has denied. At the
-//                    // same time, respect the user's decision. Don't link to system
-//                    // settings in an effort to convince the user to change their
-//                    // decision.
-//                }
-//            });
+
+    public void onMenuSelectProjectSelected()
+    {
+        this.startActivitySelectProject();
+    }
+
+    public void onMenuLoginSelected()
+    {
+        this.startActivityLogin();
+    }
+
+    public void onMenuPresetsSelected()
+    {
+        this.startActivitySelectPreset();
+    }
+
+    public void onMenuDeviceNameSelected()
+    {
+        if (!this.getBoard().IsConnected())
+        {
+            this.showResourceMessage(R.string.please_select_bluetooth_device);
+            return;
+        }
+
+        this.board.boardDevice.requestDeviceName();
+    }
+
+    public void onMenuDeviceInfoSelected()
+    {
+        if (!this.getBoard().IsConnected())
+        {
+            this.showResourceMessage(R.string.please_select_bluetooth_device);
+            return;
+        }
+
+        this.board.boardDevice.requestBoardInfo();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void onMenuBluetoothListSelected()
+    {
+        if (!this.HasBluetoothPermission()) {
+            this.RequestBluetoothPermission();
+            return;
+        }
+
+        if (!this.board.isBluetoothEnabled()) {
+            this.startActivityEnableBluetooth();
+            return;
+        }
+
+        this.startActivitySelectBluetooth();
+    }
+
 
     private void startActivityEnableBluetooth()
     {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED)
-        {
-            this.board.requestBluetoothEnable(this, ActivityResultCode_RequestEnableBluetooth);
-        }
-        else
-        {
-            //requestPermissionLauncher.launch(Manifest.permission.BLUETOOTH_CONNECT);
-        }
-}
+        if (this.HasBluetoothPermission())
+            BluetoothManager.requestEnable(this, ActivityResultCode_RequestEnableBluetooth);
+    }
 
-    private void finishedActivityEnableBluetooth(boolean success)
+    private void finishedActivityEnableBluetooth(int resultCode)
     {
     }
+
+
 
 
     private void startActivitySelectBluetooth() {
@@ -256,34 +340,71 @@ public class MainActivity extends ActivityBase {
         this.startActivityForResult(intent, ActivityResultCode_SelectBluetooth);
     }
 
-    private void finishedActivitySelectBluetooth(boolean success) {
+    private void finishedActivitySelectBluetooth(int resultCode) {
+        if (resultCode != ActivityResult_Cancel)
+            this.showResourceMessage(resultCode ==  ActivityResult_OK ? R.string.bluetooth_device_connected :  R.string.bluetooth_device_not_responding);
     }
 
     private void startActivitySelectProject()
     {
+        if (!this.getBoard().persistence.IsUserLogged())
+        {
+            this.showResourceMessage(R.string.please_login);
+            return;
+        }
+
+        if (!this.getBoard().IsConnected())
+        {
+            this.showResourceMessage(R.string.please_select_bluetooth_device);
+            return;
+        }
+
         this.startActivityForResult(new Intent(this, SelectProjectActivity.class), ActivityResultCode_SelectProject);
     }
 
-    private void finishedActivitySelectProject(boolean success)
+    private void finishedActivitySelectProject(int resultCode)
     {
-        if (success) {
+        if (resultCode == ActivityResult_OK) {
             this.invalidateOptionsMenu();
-            this.setWaitMode(true);
+            this.showEmptyScreen(true);
             this.board.requestProjectUploadSequence();
         }
     }
 
 
 
+
+    private void startActivityLogin()
+    {
+        this.startActivityForResult(new Intent(this, LoginActivity.class), ActivityResultCode_Login);
+    }
+
+    private void finishedActivityLogin(int result)
+    {
+        if (result != ActivityResult_Cancel)
+            this.showResourceMessage(result == ActivityResult_OK ? R.string.login_successful : R.string.login_unsuccessful);
+    }
+
+
+
+
+
     private void startActivitySelectPreset()
     {
+        if (!this.getBoard().persistence.IsProjectSelected())
+        {
+            this.showResourceMessage(R.string.please_load_project);
+            return;
+        }
+
         this.startActivityForResult(new Intent(this, SelectPresetActivity.class), ActivityResultCode_SelectPreset);
     }
 
-    private void finishedActivitySelectPreset(boolean success)
+    private void finishedActivitySelectPreset(int resultCode)
     {
         this.invalidateOptionsMenu();
     }
+
 
 
     private void startActivitySetDeviceName(String deviceName)
@@ -298,10 +419,12 @@ public class MainActivity extends ActivityBase {
         };
     }
 
-    private void finishedActivitySetDeviceName(boolean success)
+    private void finishedActivitySetDeviceName(int resultCode)
     {
 
     }
+
+
 
 
     private void requestAppClose()
@@ -404,7 +527,7 @@ public class MainActivity extends ActivityBase {
                         activity.listParams.setAdapter(activity.propertiesArrayAdapter);
                         activity.propertiesArrayAdapter.notifyDataSetChanged();
 
-                        activity.setWaitMode(false);
+                        activity.showEmptyScreen(false);
                     }
                 });
             }

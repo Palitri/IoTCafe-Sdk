@@ -1,4 +1,4 @@
-package com.palitri.openiot.constructor.arrayadapters;
+package com.palitri.iotcafe.arrayadapters;
 
 import android.content.Context;
 import android.view.View;
@@ -8,9 +8,9 @@ import android.widget.Toast;
 
 import com.palitri.openiot.construction.framework.web.api.OpenIotService;
 import com.palitri.openiot.construction.framework.web.models.Preset;
-import com.palitri.openiot.constructor.R;
-import com.palitri.openiot.constructor.activities.ActivityBase;
-import com.palitri.openiot.constructor.dialogs.StringInputDialog;
+import com.palitri.iotcafe.R;
+import com.palitri.iotcafe.activities.ActivityBase;
+import com.palitri.iotcafe.dialogs.StringInputDialog;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,5 @@
 package com.palitri.openiot.construction.framework.board.protocol;
 
-import com.palitri.openiot.construction.framework.board.api.OpenIotBoard;
 import com.palitri.openiot.construction.framework.tools.utils.ByteUtils;
 import com.palitri.openiot.construction.framework.tools.utils.MathUtils;
 

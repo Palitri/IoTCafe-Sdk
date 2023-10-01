@@ -29,6 +29,8 @@ import java.util.HashMap;
 public class CompositeBoard extends OpenIoTEventsHandler {
     private static final String TAG = "CompositeBoard";
 
+    private boolean isWaitingResponse = false;
+
     public OpenIotBoard boardDevice;
     public BluetoothManager bluetoothManager = null;
     public ITransmissionChannel transmissionChannel;
@@ -86,12 +88,26 @@ public class CompositeBoard extends OpenIoTEventsHandler {
         if (bluetoothDevice == null)
             return CompositeBoardResult.DeviceNotFound;
 
+        if (this.boardDevice != null) {
+            this.boardDevice.Close();
+            this.boardDevice = null;
+        }
+
         this.transmissionChannel = new BluetoothTransmissionChannel(bluetoothDevice, this.bluetoothManager.getAdapter());
 
         this.boardDevice = new OpenIotBoard(transmissionChannel);
         this.boardDevice.eventHandlers.add(this);
         this.boardDevice.eventHandlers.addAll(this.eventHandlers);
-        this.boardDevice.Open();
+
+        if (!this.boardDevice.Open())
+        {
+            return CompositeBoardResult.DeviceCannotConnect;
+        }
+
+        if (!this.RequestResponse()) {
+            this.boardDevice.Close();
+            return CompositeBoardResult.DeviceNotResponding;
+        }
 
         this.persistence.SetDeviceName(deviceName);
 
@@ -100,7 +116,8 @@ public class CompositeBoard extends OpenIoTEventsHandler {
 
     public void DisconnectFromBoard()
     {
-        this.boardDevice.Close();
+        if (this.boardDevice != null)
+            this.boardDevice.Close();
     }
 
     public boolean IsConnected()
@@ -263,6 +280,39 @@ public class CompositeBoard extends OpenIoTEventsHandler {
     }
 
 
+
+    public boolean RequestResponse()
+    {
+        this.isWaitingResponse = true;
+        this.boardDevice.requestBoardInfo();
+
+        try {
+            Thread thread = new Thread() {
+                @Override
+                public void run() {
+                    for (int i = 0; i < 10; i++) {
+                        if (CompositeBoard.this.isWaitingResponse) {
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                break;
+                            }
+                        }
+                    }
+                }
+            };
+
+            thread.start();
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        return !this.isWaitingResponse;
+    }
+
+
     // ICompositeBoardEvents >>>
 
     @Override
@@ -296,6 +346,10 @@ public class CompositeBoard extends OpenIoTEventsHandler {
         this.boardDevice.requestProperties();
     }
 
+    @Override
+    public void onInfoReceived(Object sender, String info) {
+        this.isWaitingResponse = false;
+    }
     // ICompositeBoardEvents <<<
 
 }

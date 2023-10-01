@@ -1,8 +1,9 @@
-package com.palitri.openiot.constructor.activities;
+package com.palitri.iotcafe.activities;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,11 +16,15 @@ import com.palitri.openiot.construction.framework.composite.CompositeBoard;
 import com.palitri.openiot.construction.framework.web.api.OpenIotService;
 import com.palitri.openiot.construction.framework.web.models.Device;
 import com.palitri.openiot.construction.framework.web.models.DeviceOS;
-import com.palitri.openiot.constructor.ConstructorApplication;
+import com.palitri.iotcafe.IoTCafeApplication;
 
 import java.io.Serializable;
 
 public class ActivityBase extends AppCompatActivity  {
+
+    public static final int ActivityResult_Cancel = RESULT_CANCELED;
+    public static final int ActivityResult_OK = 1;
+    public static final int ActivityResult_Error = 2;
 
     public CompositeBoard board;
 
@@ -30,9 +35,9 @@ public class ActivityBase extends AppCompatActivity  {
         this.board = this.getBoard();
     }
 
-    public ConstructorApplication getConstructorApplication()
+    public IoTCafeApplication getConstructorApplication()
     {
-        return (ConstructorApplication)this.getApplication();
+        return (IoTCafeApplication)this.getApplication();
     }
 
     public CompositeBoard getBoard()
@@ -48,15 +53,15 @@ public class ActivityBase extends AppCompatActivity  {
         this.startActivityForResult(intent, requestCode);
     }
 
-    public void FinishActivity(Serializable activityData)
+    public void FinishActivity(Serializable activityData, int activityResult)
     {
         if (activityData != null) {
             Intent intent = new Intent();
             intent.putExtra("activityData", SerializationUtils.SerializeToString(activityData));
-            this.setResult(RESULT_OK, intent);
+            this.setResult(activityResult, intent);
         }
         else
-            this.setResult(RESULT_OK);
+            this.setResult(activityResult);
 
         this.finish();
     }
@@ -117,6 +122,16 @@ public class ActivityBase extends AppCompatActivity  {
     public void onUpdatedDeviceInfo(Device device)
     {
 
+    }
+
+    public void showResourceMessage(int messageId)
+    {
+        this.showMessage(getResources().getText(messageId).toString());
+    }
+
+    public void showMessage(String message)
+    {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
 }

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".activities.SelectPresetActivity">
 
-    <include android:id="@+id/view_wait_icon"
+    <include android:id="@+id/view_empty"
         layout="@layout/component_wait_layout"
         />
 

@@ -178,4 +178,19 @@
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
+  <data name="DeviceCannotConnect" xml:space="preserve">
+    <value>Cannot connect to device</value>
+  </data>
+  <data name="DeviceConnectedSuccessfully" xml:space="preserve">
+    <value>Device connected</value>
+  </data>
+  <data name="DeviceNotFound" xml:space="preserve">
+    <value>Cannot find device</value>
+  </data>
+  <data name="DeviceNotResponding" xml:space="preserve">
+    <value>Device is not responding</value>
+  </data>
+  <data name="DevicePleaseConnect" xml:space="preserve">
+    <value>Please connect to a device</value>
+  </data>
 </root>

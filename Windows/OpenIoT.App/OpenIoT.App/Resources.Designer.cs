@@ -79,6 +79,51 @@ namespace OpenIoT.App {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot connect to device.
+        /// </summary>
+        internal static string DeviceCannotConnect {
+            get {
+                return ResourceManager.GetString("DeviceCannotConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device connected.
+        /// </summary>
+        internal static string DeviceConnectedSuccessfully {
+            get {
+                return ResourceManager.GetString("DeviceConnectedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot find device.
+        /// </summary>
+        internal static string DeviceNotFound {
+            get {
+                return ResourceManager.GetString("DeviceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device is not responding.
+        /// </summary>
+        internal static string DeviceNotResponding {
+            get {
+                return ResourceManager.GetString("DeviceNotResponding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please connect to a device.
+        /// </summary>
+        internal static string DevicePleaseConnect {
+            get {
+                return ResourceManager.GetString("DevicePleaseConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap icon_delete {

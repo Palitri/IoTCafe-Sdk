@@ -34,7 +34,7 @@ public class BluetoothTransmissionChannel implements ITransmissionChannel {
 
         lock = new ReentrantLock();
 
-        this.open();
+        //this.open();
     }
 
     private boolean createSocket() {

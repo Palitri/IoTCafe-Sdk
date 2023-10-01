@@ -1,4 +1,4 @@
-package com.palitri.openiot.constructor.dialogs;
+package com.palitri.iotcafe.dialogs;
 
 import android.content.Context;
 import android.content.DialogInterface;

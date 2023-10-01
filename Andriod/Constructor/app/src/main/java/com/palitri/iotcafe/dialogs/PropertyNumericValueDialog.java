@@ -1,4 +1,4 @@
-package com.palitri.openiot.constructor.dialogs;
+package com.palitri.iotcafe.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.palitri.openiot.construction.framework.board.models.BoardProperty;
 import com.palitri.openiot.construction.framework.board.models.BoardPropertyType;
-import com.palitri.openiot.constructor.R;
+import com.palitri.iotcafe.R;
 
 public abstract class PropertyNumericValueDialog extends Dialog {
 

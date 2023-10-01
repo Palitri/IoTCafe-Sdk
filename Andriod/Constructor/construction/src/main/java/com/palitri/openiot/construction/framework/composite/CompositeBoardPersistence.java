@@ -1,6 +1,7 @@
 package com.palitri.openiot.construction.framework.composite;
 
 import com.palitri.openiot.construction.framework.tools.persistence.IPersistence;
+import com.palitri.openiot.construction.framework.tools.utils.StringUtils;
 import com.palitri.openiot.construction.framework.web.models.PresetsCollection;
 import com.palitri.openiot.construction.framework.web.models.Project;
 
@@ -11,6 +12,22 @@ public class CompositeBoardPersistence {
     public CompositeBoardPersistence(IPersistence persistence)
     {
         this.persistence = persistence;
+    }
+
+
+    public boolean IsUserLogged()
+    {
+        return !StringUtils.IsNullOrEmpty(this.getToken());
+    }
+
+    public boolean IsDeviceSelected()
+    {
+        return !StringUtils.IsNullOrEmpty(this.GetDeviceName());
+    }
+
+    public boolean IsProjectSelected()
+    {
+        return this.GetProject() != null;
     }
 
 

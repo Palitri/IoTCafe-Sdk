@@ -1,4 +1,4 @@
-package com.palitri.openiot.constructor.notifications;
+package com.palitri.iotcafe.notifications;
 
 import android.util.Log;
 

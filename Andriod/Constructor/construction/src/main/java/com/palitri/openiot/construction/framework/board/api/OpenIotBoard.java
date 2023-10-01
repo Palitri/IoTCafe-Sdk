@@ -27,10 +27,11 @@ public class OpenIotBoard extends OpenIoTProtocol {
         this.transmissionChannel.write(data, offset, size);
     }
 
-    public void Open()
+    public boolean Open()
     {
         if (!this.transmissionChannel.isOpened())
-            this.transmissionChannel.open();
+            if (!this.transmissionChannel.open())
+                return false;
 
         if (this.transmissionThread == null) {
             this.transmissionThread = new ContinuousThread()
@@ -43,6 +44,8 @@ public class OpenIotBoard extends OpenIoTProtocol {
             };
             this.transmissionThread.start();
         }
+
+        return true;
     }
 
     public void Close()

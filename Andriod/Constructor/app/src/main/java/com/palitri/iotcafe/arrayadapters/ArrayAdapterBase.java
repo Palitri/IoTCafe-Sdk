@@ -1,4 +1,4 @@
-package com.palitri.openiot.constructor.arrayadapters;
+package com.palitri.iotcafe.arrayadapters;
 
 import android.app.Activity;
 import android.content.Context;

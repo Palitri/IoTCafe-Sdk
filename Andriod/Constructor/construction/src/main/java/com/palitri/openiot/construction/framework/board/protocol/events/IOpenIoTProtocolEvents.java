@@ -1,7 +1,5 @@
 package com.palitri.openiot.construction.framework.board.protocol.events;
 
-import com.palitri.openiot.construction.framework.board.models.BoardProperty;
-
 import java.util.HashMap;
 import java.util.UUID;
 

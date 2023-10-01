@@ -1,4 +1,4 @@
-package com.palitri.openiot.constructor.arrayadapters;
+package com.palitri.iotcafe.arrayadapters;
 
 import android.content.Context;
 import android.view.View;
@@ -11,9 +11,9 @@ import com.palitri.openiot.construction.framework.board.models.BoardProperty;
 import com.palitri.openiot.construction.framework.board.models.BoardPropertyType;
 import com.palitri.openiot.construction.framework.tools.utils.StringUtils;
 import com.palitri.openiot.construction.framework.composite.CompositeProperty;
-import com.palitri.openiot.constructor.R;
-import com.palitri.openiot.constructor.activities.ActivityBase;
-import com.palitri.openiot.constructor.dialogs.PropertyNumericValueDialog;
+import com.palitri.iotcafe.R;
+import com.palitri.iotcafe.activities.ActivityBase;
+import com.palitri.iotcafe.dialogs.PropertyNumericValueDialog;
 
 import java.util.ArrayList;
 
