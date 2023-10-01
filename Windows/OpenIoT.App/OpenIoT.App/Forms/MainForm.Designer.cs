@@ -43,6 +43,7 @@
             this.contextMenuTray = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.propertiesListControl = new OpenIoT.App.Controls.PropertiesListControl();
             this.menuMain.SuspendLayout();
             this.contextMenuTray.SuspendLayout();
             this.SuspendLayout();
@@ -57,7 +58,7 @@
             this.comToolStripMenuItem});
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
-            this.menuMain.Size = new System.Drawing.Size(800, 42);
+            this.menuMain.Size = new System.Drawing.Size(800, 40);
             this.menuMain.TabIndex = 0;
             this.menuMain.Text = "menuMain";
             // 
@@ -71,7 +72,7 @@
             this.boardInfoToolStripMenuItem});
             this.optionsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("optionsToolStripMenuItem.Image")));
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(52, 38);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(52, 36);
             // 
             // loginToolStripMenuItem
             // 
@@ -117,14 +118,14 @@
             // 
             this.presetToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("presetToolStripMenuItem.Image")));
             this.presetToolStripMenuItem.Name = "presetToolStripMenuItem";
-            this.presetToolStripMenuItem.Size = new System.Drawing.Size(52, 38);
+            this.presetToolStripMenuItem.Size = new System.Drawing.Size(52, 36);
             // 
             // comToolStripMenuItem
             // 
             this.comToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.comToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("comToolStripMenuItem.Image")));
             this.comToolStripMenuItem.Name = "comToolStripMenuItem";
-            this.comToolStripMenuItem.Size = new System.Drawing.Size(52, 38);
+            this.comToolStripMenuItem.Size = new System.Drawing.Size(52, 36);
             // 
             // notifyIcon
             // 
@@ -158,12 +159,22 @@
             this.exitToolStripMenuItem.Text = "Close";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // propertiesListControl
+            // 
+            this.propertiesListControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propertiesListControl.Location = new System.Drawing.Point(0, 40);
+            this.propertiesListControl.Name = "propertiesListControl";
+            this.propertiesListControl.Size = new System.Drawing.Size(800, 410);
+            this.propertiesListControl.TabIndex = 1;
+            this.propertiesListControl.PropertyClicked += new OpenIoT.App.Controls.EventHandlers.PropertyEventHandler(this.propertiesListControl_PropertyClicked);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.propertiesListControl);
             this.Controls.Add(this.menuMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuMain;
