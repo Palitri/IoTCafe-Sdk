@@ -49,7 +49,7 @@
     <string name="bluetooth_device_connected">Device connected</string>
     <string name="bluetooth_device_not_found">Cannot find device</string>
     <string name="bluetooth_device_cannot_connect">Cannot connect to device</string>
-    <string name="bluetooth_device_not_responding">Device is not responding</string>
+    <string name="bluetooth_device_not_responding">Device is not responding or is not IoT.Cafe device</string>
     <string name="title_activity_login">Log in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_username">User name</string>

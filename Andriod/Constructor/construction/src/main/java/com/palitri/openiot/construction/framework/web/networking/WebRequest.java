@@ -2,6 +2,8 @@ package com.palitri.openiot.construction.framework.web.networking;
 
 import android.os.AsyncTask;
 
+import androidx.annotation.NonNull;
+
 import com.palitri.openiot.construction.framework.tools.utils.StringUtils;
 
 import java.io.BufferedOutputStream;
@@ -72,7 +74,7 @@ public class WebRequest extends AsyncTask<Object,Void,String> {
     }
 
     @Override
-    protected String doInBackground(Object... params)
+    protected String doInBackground(@NonNull Object... params)
     {
         this.requestUrl = (String)params[0];
 

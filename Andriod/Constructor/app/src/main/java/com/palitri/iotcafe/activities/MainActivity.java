@@ -18,8 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.palitri.iotcafe.R;
 import com.palitri.iotcafe.arrayadapters.PropertiesArrayAdapter;
@@ -39,14 +37,15 @@ public class MainActivity extends ActivityBase {
     private static final int ActivityResultCode_SelectPreset = 1015;
     private static final int ActivityResultCode_SetDeviceName = 1016;
 
-    private static final int PermissionRequestCode_EnableBluetooth = 10101;
+    private static final int PermissionRequestCode_BluetoothEnable = 10101;
+    private static final int PermissionRequestCode_BluetoothScan = 10102;
 
     public ListView listParams;
     public View waitIconView;
 
     private ArrayAdapter propertiesArrayAdapter;
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    @RequiresApi(api = Build.VERSION_CODES.S)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,15 +73,20 @@ public class MainActivity extends ActivityBase {
             this.RequestBluetoothPermission();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.S)
     private boolean HasBluetoothPermission()
     {
-        return BluetoothManager.isPermitted(this, Manifest.permission.BLUETOOTH_CONNECT);
+        return BluetoothManager.isPermitted(this, Manifest.permission.BLUETOOTH_CONNECT) && BluetoothManager.isPermitted(this, Manifest.permission.BLUETOOTH_SCAN);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    @RequiresApi(api = Build.VERSION_CODES.S)
     private void RequestBluetoothPermission()
     {
-        BluetoothManager.requestPermission(this, Manifest.permission.BLUETOOTH_CONNECT, PermissionRequestCode_EnableBluetooth);
+        if (!BluetoothManager.isPermitted(this, Manifest.permission.BLUETOOTH_CONNECT))
+            BluetoothManager.requestPermission(this, Manifest.permission.BLUETOOTH_CONNECT, PermissionRequestCode_BluetoothEnable);
+
+        else if (!BluetoothManager.isPermitted(this, Manifest.permission.BLUETOOTH_SCAN))
+            BluetoothManager.requestPermission(this, Manifest.permission.BLUETOOTH_SCAN, PermissionRequestCode_BluetoothScan);
     }
 
 
@@ -92,7 +96,8 @@ public class MainActivity extends ActivityBase {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         switch (requestCode) {
-            case PermissionRequestCode_EnableBluetooth:
+            case PermissionRequestCode_BluetoothEnable:
+            case PermissionRequestCode_BluetoothScan:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     this.onBluetoothPermissionGranted();
                 } else {
@@ -322,6 +327,7 @@ public class MainActivity extends ActivityBase {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.S)
     private void startActivityEnableBluetooth()
     {
         if (this.HasBluetoothPermission())

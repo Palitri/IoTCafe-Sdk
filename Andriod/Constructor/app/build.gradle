@@ -4,13 +4,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 31
-    buildToolsVersion "30.0.0"
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.palitri.iotcafe"
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdk 21
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -29,6 +28,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'com.palitri.iotcafe'
     //PUSH NOTIFICATIONS STUFF: For Kotlin only: App complained it needs at least v.26 api (Android 8.0+)
 
 }
