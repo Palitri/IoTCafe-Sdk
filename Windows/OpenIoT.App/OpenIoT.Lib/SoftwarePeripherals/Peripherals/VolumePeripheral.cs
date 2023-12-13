@@ -15,7 +15,8 @@ namespace OpenIoT.Lib.SoftwarePeripherals.Peripherals
     {
         private IAudioControls audioControls;
 
-        private BoardProperty volumeProperty;
+        // TODO: Remove deltaProperty and use volumeProperty instead, make useDeltaProperty a setting and rename it simply to "delta"
+        private BoardProperty volumeProperty, deltaProperty, useDeltaProperty;
 
         private SoftwareControlsDispatcher softwareControlsDispatcher;
         private Peripheral boardPeripheral;
@@ -34,27 +35,37 @@ namespace OpenIoT.Lib.SoftwarePeripherals.Peripherals
 
             //return;
 
-            if (this.volumeProperty != null)
+
+            if (softwareControlsDispatcher.GetBoard().properties == null)
+                return;
+
+            if (boardPeripheral.Properties.Count < 3)
+                return;
+
+            // This should be in constructor, but at the time of construction, the OpenIoTBoard object has not yet populated its properties, because it gets them by a request to the physical board
+            if (this.volumeProperty == null)
+                this.volumeProperty = softwareControlsDispatcher.GetBoard().properties.FirstOrDefault(p => p.semantic == boardPeripheral.Properties[0].Semantic);
+            if (this.deltaProperty == null)
+                this.deltaProperty = softwareControlsDispatcher.GetBoard().properties.FirstOrDefault(p => p.semantic == boardPeripheral.Properties[1].Semantic);
+            if (this.useDeltaProperty == null)
+                this.useDeltaProperty = softwareControlsDispatcher.GetBoard().properties.FirstOrDefault(p => p.semantic == boardPeripheral.Properties[2].Semantic);
+
+
+            if (this.useDeltaProperty.GetBool())
             {
-                //int newVolumeValue = (int)(this.volumeProperty.GetFloat() * 50.0f);
-                //int delta = newVolumeValue - this.volumeValue;
-                //if (delta != 0)
-                //{
-                //    this.audioControls.ChangeVolume(delta);
+                int delta = (int)Math.Round(this.deltaProperty.GetFloat());
+                if (delta != 0)
+                {
+                    this.audioControls.ChangeVolume(delta);
+                    this.deltaProperty.SetValue(0.0f);
 
-                //    this.volumeValue = newVolumeValue;
-                //}
-
-
-                this.audioControls.SetVolume(this.volumeProperty.GetFloat());
+                    softwareControlsDispatcher.GetBoard().RequestPropertyUpdate(this.deltaProperty);
+                }
             }
             else
-            {
-                // This should be in constructor, but at the time of construction, the OpenIoTBoard object has not yet populated its properties, because it gets them by a request to the physical board
-                if (softwareControlsDispatcher.GetBoard().properties != null)
-                    this.volumeProperty = softwareControlsDispatcher.GetBoard().properties.FirstOrDefault(p => p.semantic == boardPeripheral.Properties[0].Semantic);
+            { 
+                this.audioControls.SetVolume(this.volumeProperty.GetFloat());
             }
-
         }
     }
 }

@@ -56,6 +56,14 @@ public class SelectProjectActivity extends ActivityBase {
 
                             @Override
                             public void OnItemClick(Project project) {
+                                if (!activity.getBoard().IsConnected())
+                                {
+                                    activity.showResourceMessage(R.string.please_select_bluetooth_device);
+                                    activity.FinishActivity(null, ActivityResult_Cancel);
+                                    return;
+                                }
+
+
                                 activity.setWaitMode(true);
 
                                 new OpenIotService()

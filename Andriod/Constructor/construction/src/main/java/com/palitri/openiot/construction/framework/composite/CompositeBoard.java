@@ -125,6 +125,11 @@ public class CompositeBoard extends OpenIoTEventsHandler {
         return this.boardDevice != null && this.transmissionChannel != null && this.transmissionChannel.isOpened();
     }
 
+    public boolean IsProjectLoaded()
+    {
+        return this.project != null;
+    }
+
     public boolean isBluetoothCapable()
     {
         return this.bluetoothManager.IsBluetoothCapable();
@@ -138,6 +143,15 @@ public class CompositeBoard extends OpenIoTEventsHandler {
     public void requestBluetoothEnable(Activity requestingActivity, int activityResultCode)
     {
         BluetoothManager.requestEnable(requestingActivity, activityResultCode);
+    }
+
+    public void ClearLoadedProject()
+    {
+        this.project = null;
+        this.persistence.SetProject(null);
+
+        this.presets.clear();
+        this.persistence.SetPresets(null);
     }
 
     public void LoadProject(Project project, PresetsCollection projectPresets)

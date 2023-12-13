@@ -45,7 +45,7 @@
     <string name="login_successful">You are now logged in. Thank you!</string>
     <string name="login_unsuccessful">Invalid login credentials</string>
     <string name="bluetooth_permission_denied">Bluetooth permission is denied</string>
-    <string name="please_select_bluetooth_device">Please select a bluetooth device to connect</string>
+    <string name="please_select_bluetooth_device">Please connect to an IoT.Cafe device</string>
     <string name="bluetooth_device_connected">Device connected</string>
     <string name="bluetooth_device_not_found">Cannot find device</string>
     <string name="bluetooth_device_cannot_connect">Cannot connect to device</string>

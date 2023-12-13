@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OpenIoT.Lib")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3521611089b513a35d57870a9bd9eb7808749e2a")]
 [assembly: System.Reflection.AssemblyProductAttribute("OpenIoT.Lib")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OpenIoT.Lib")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

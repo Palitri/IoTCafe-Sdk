@@ -78,6 +78,20 @@ public class SelectPresetActivity extends ActivityBase {
                     public void setValue(String value) {
                         super.setValue(value);
 
+                        if (!SelectPresetActivity.this.getBoard().IsProjectLoaded())
+                        {
+                            SelectPresetActivity.this.showResourceMessage(R.string.please_load_project);
+                            SelectPresetActivity.this.FinishActivity(null, ActivityResult_Cancel);
+                            return;
+                        }
+
+                        if (!SelectPresetActivity.this.getBoard().IsConnected())
+                        {
+                            SelectPresetActivity.this.showResourceMessage(R.string.please_select_bluetooth_device);
+                            SelectPresetActivity.this.FinishActivity(null, ActivityResult_Cancel);
+                            return;
+                        }
+
                         Preset preset = SelectPresetActivity.this.board.SnapshotProjectPreset(value);
                         new OpenIotService(){
                             @Override

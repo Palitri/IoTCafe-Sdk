@@ -45,6 +45,8 @@ public class LoginActivity extends ActivityBase {
                                     LoginActivity.this.FinishActivity(null, ActivityResult_Error);
                                 }
                                 else {
+                                    LoginActivity.this.getBoard().ClearLoadedProject();
+
                                     LoginActivity.this.LogIn(token);
                                     LoginActivity.this.FinishActivity(null, ActivityResult_OK);
                                 }

@@ -135,6 +135,7 @@ public class MainActivity extends ActivityBase {
         super.onDestroy();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.S)
     @Override
     protected void onStart() {
         super.onStart();
@@ -187,7 +188,7 @@ public class MainActivity extends ActivityBase {
         return super.onPrepareOptionsMenu(menu);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    @RequiresApi(api = Build.VERSION_CODES.S)
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int groupId = item.getGroupId();
@@ -310,7 +311,7 @@ public class MainActivity extends ActivityBase {
         this.board.boardDevice.requestBoardInfo();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    @RequiresApi(api = Build.VERSION_CODES.S)
     public void onMenuBluetoothListSelected()
     {
         if (!this.HasBluetoothPermission()) {
@@ -356,12 +357,6 @@ public class MainActivity extends ActivityBase {
         if (!this.getBoard().persistence.IsUserLogged())
         {
             this.showResourceMessage(R.string.please_login);
-            return;
-        }
-
-        if (!this.getBoard().IsConnected())
-        {
-            this.showResourceMessage(R.string.please_select_bluetooth_device);
             return;
         }
 

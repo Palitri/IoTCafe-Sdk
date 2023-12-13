@@ -14,5 +14,9 @@ Contains the source code of the [IoT.Cafe apps](https://iot.cafe/get/app), which
 
 ## References
 [IoT.Cafe website](https://iot.cafe)
+
 [Apps](https://iot.cafe/get/app)
+
 [OpenIoT specification](https://openiot.info/specification.html)
+
+[Contact](https://iot.cafe/contact)
