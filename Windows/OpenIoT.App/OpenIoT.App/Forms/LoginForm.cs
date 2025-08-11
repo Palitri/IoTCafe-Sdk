@@ -1,4 +1,4 @@
-﻿using OpenIoT.Lib.Web.Api;
+﻿using Palitri.OpenIoT.Web.Api;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OpenIoT.App.Forms
+namespace Palitri.OpenIoT.App.Forms
 {
     public partial class LoginForm : Form
     {

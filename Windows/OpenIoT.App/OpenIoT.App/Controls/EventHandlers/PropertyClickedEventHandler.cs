@@ -1,11 +1,11 @@
-﻿using OpenIoT.Lib.Composite;
+﻿using Palitri.OpenIoT.Composite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.App.Controls.EventHandlers
+namespace Palitri.OpenIoT.App.Controls.EventHandlers
 {
     public delegate void PropertyEventHandler(object sender, PropertyEventArgs args);
 

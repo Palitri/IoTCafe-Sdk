@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Web.Models.Configurations.Project
+namespace Palitri.OpenIoT.Web.Models.Configurations.Project
 {
     public class Peripheral
     {

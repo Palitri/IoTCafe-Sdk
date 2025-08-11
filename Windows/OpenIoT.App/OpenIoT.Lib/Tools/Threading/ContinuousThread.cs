@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Tools.Threading
+namespace Palitri.OpenIoT.Tools.Threading
 {
     public delegate bool ContinuousThreadAction();
 

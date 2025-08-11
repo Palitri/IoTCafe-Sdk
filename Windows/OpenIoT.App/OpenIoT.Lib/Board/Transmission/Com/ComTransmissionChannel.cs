@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Board.Transmission.Com
+namespace Palitri.OpenIoT.Board.Transmission.Com
 {
     public class ComTransmissionChannel : ITransmissionChannel
     {
@@ -31,7 +31,7 @@ namespace OpenIoT.Lib.Board.Transmission.Com
 
         public void Write(byte[] buffer, int offset, int length)
         {
-            this.serialPort.Write(buffer, offset, length);
+             this.serialPort.Write(buffer, offset, length);
         }
 
         public int Read(byte[] buffer, int offset, int length)

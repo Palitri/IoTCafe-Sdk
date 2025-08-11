@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Tools.Utils
+namespace Palitri.OpenIoT.Tools.Utils
 {
     // Class is provided for comatibility with other system components (web api, board),
     // for fixing ambiguity between multiple existing Guid formats

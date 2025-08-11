@@ -1,11 +1,11 @@
-﻿using OpenIoT.Lib.Web.Models.Configurations.Project;
+﻿using Palitri.OpenIoT.Web.Models.Configurations.Project;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Web.Models.Configurations.Presets
+namespace Palitri.OpenIoT.Web.Models.Configurations.Presets
 {
     public class PresetProperty
     {

@@ -1,6 +1,6 @@
 ﻿namespace Palitri.OpenIoT.App.Dialogs
 {
-    partial class InputDialog
+    partial class PropertyDataValueDialog
     {
         /// <summary>
         /// Required designer variable.

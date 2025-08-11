@@ -1,6 +1,6 @@
-﻿using OpenIoT.Lib.Board.Models;
-using OpenIoT.Lib.Board.Protocol.Events;
-using OpenIoT.Lib.Tools.Utils;
+﻿using Palitri.OpenIoT.Board.Models;
+using Palitri.OpenIoT.Board.Protocol.Events;
+using Palitri.OpenIoT.Tools.Utils;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace OpenIoT.Lib.Board.Protocol
+namespace Palitri.OpenIoT.Board.Protocol
 {
 
 
@@ -21,6 +21,8 @@ namespace OpenIoT.Lib.Board.Protocol
         public const byte CommandCode_UploadProgramLogic        = 0x44;
         public const byte CommandCode_ResetLogic                = 0x45;
         public const byte CommandCode_Reset                     = 0x46;
+        public const byte CommandCode_ListCommands              = 0x47;
+        public const byte CommandCode_ExecuteCommand            = 0x48;
 
         public const byte ResponseCode_SetDeviceProperties      = 0x41 | Code_ResponseBit;
         public const byte ResponseCode_GetDeviceProperties      = 0x42 | Code_ResponseBit;
@@ -28,6 +30,8 @@ namespace OpenIoT.Lib.Board.Protocol
         public const byte ResponseCode_UploadProgramLogic       = 0x44 | Code_ResponseBit;
         public const byte ResponseCode_ResetLogic               = 0x45 | Code_ResponseBit;
         public const byte ResponseCode_Reset                    = 0x46 | Code_ResponseBit;
+        public const byte ResponseCode_ListCommands             = 0x47 | Code_ResponseBit;
+        public const byte ResponseCode_ExecuteCommand           = 0x48 | Code_ResponseBit;
 
         public const byte DevicePropertyId_Uid              = 0x11;
         public const byte DevicePropertyId_Name             = 0x12;
@@ -55,7 +59,7 @@ namespace OpenIoT.Lib.Board.Protocol
                         string infoString = ByteUtils.ToString(data, 0, data.Length);
 
                         foreach (IOpenIoTProtocolEvents eventHandler in this.EventHandlers)
-                            eventHandler.onInfoReceived(this, infoString);
+                            eventHandler.OnInfoReceived(this, infoString);
 
                         break;
                     }
@@ -78,7 +82,7 @@ namespace OpenIoT.Lib.Board.Protocol
                         }
 
                         foreach (IOpenIoTProtocolEvents eventHandler in this.EventHandlers)
-                            eventHandler.onDevicePropertiesSet(this, properties);
+                            eventHandler.OnDevicePropertiesSet(this, properties);
 
                         break;
                     }
@@ -106,7 +110,7 @@ namespace OpenIoT.Lib.Board.Protocol
                                 case DevicePropertyId_Uid:
                                     {
                                         foreach (IOpenIoTProtocolEvents eventHandler in this.EventHandlers)
-                                            eventHandler.onDeviceUidReceived(this, (Guid)value);
+                                            eventHandler.OnDeviceUidReceived(this, (Guid)value);
 
                                         break;
                                     }
@@ -114,7 +118,7 @@ namespace OpenIoT.Lib.Board.Protocol
                                 case DevicePropertyId_Name:
                                     {
                                         foreach (IOpenIoTProtocolEvents eventHandler in this.EventHandlers)
-                                            eventHandler.onDeviceNameReceived(this, (string)value);
+                                            eventHandler.OnDeviceNameReceived(this, (string)value);
 
                                         break;
                                     }
@@ -127,7 +131,7 @@ namespace OpenIoT.Lib.Board.Protocol
                                 case DevicePropertyId_ProjectUid:
                                     {
                                         foreach (IOpenIoTProtocolEvents eventHandler in this.EventHandlers)
-                                            eventHandler.onProjectUidReceived(this, (Guid)value);
+                                            eventHandler.OnProjectUidReceived(this, (Guid)value);
 
                                         break;
                                     }
@@ -135,7 +139,7 @@ namespace OpenIoT.Lib.Board.Protocol
                                 case DevicePropertyId_ProjectName:
                                     {
                                         foreach (IOpenIoTProtocolEvents eventHandler in this.EventHandlers)
-                                            eventHandler.onProjectNameReceived(this, (string)value);
+                                            eventHandler.OnProjectNameReceived(this, (string)value);
 
                                         break;
                                     }
@@ -143,7 +147,7 @@ namespace OpenIoT.Lib.Board.Protocol
                                 case DevicePropertyId_ProjectHash:
                                     {
                                         foreach (IOpenIoTProtocolEvents eventHandler in this.EventHandlers)
-                                            eventHandler.onProjectHashReceived(this, (uint)value);
+                                            eventHandler.OnProjectHashReceived(this, (uint)value);
 
                                         break;
                                     }
@@ -151,7 +155,7 @@ namespace OpenIoT.Lib.Board.Protocol
                                 case DevicePropertyId_UserUid:
                                     {
                                         foreach (IOpenIoTProtocolEvents eventHandler in this.EventHandlers)
-                                            eventHandler.onUserUidReceived(this, (Guid)value);
+                                            eventHandler.OnUserUidReceived(this, (Guid)value);
 
                                         break;
                                     }
@@ -159,7 +163,7 @@ namespace OpenIoT.Lib.Board.Protocol
                                 case DevicePropertyId_FirmwareName:
                                     {
                                         foreach (IOpenIoTProtocolEvents eventHandler in this.EventHandlers)
-                                            eventHandler.onFirmwareNameReceived(this, (string)value);
+                                            eventHandler.OnFirmwareNameReceived(this, (string)value);
 
                                         break;
                                     }
@@ -167,7 +171,7 @@ namespace OpenIoT.Lib.Board.Protocol
                                 case DevicePropertyId_FirmwareVendor:
                                     {
                                         foreach (IOpenIoTProtocolEvents eventHandler in this.EventHandlers)
-                                            eventHandler.onFirmwareVendorReceived(this, (string)value);
+                                            eventHandler.OnFirmwareVendorReceived(this, (string)value);
 
                                         break;
                                     }
@@ -175,7 +179,7 @@ namespace OpenIoT.Lib.Board.Protocol
                                 case DevicePropertyId_FirmwareVersion:
                                     {
                                         foreach (IOpenIoTProtocolEvents eventHandler in this.EventHandlers)
-                                            eventHandler.onFirmwareVersionReceived(this, (string)value);
+                                            eventHandler.OnFirmwareVersionReceived(this, (string)value);
 
                                         break;
                                     }
@@ -183,7 +187,7 @@ namespace OpenIoT.Lib.Board.Protocol
                                 case DevicePropertyId_BoardName:
                                     {
                                         foreach (IOpenIoTProtocolEvents eventHandler in this.EventHandlers)
-                                            eventHandler.onBoardNameReceived(this, (string)value);
+                                            eventHandler.OnBoardNameReceived(this, (string)value);
 
                                         break;
                                     }
@@ -193,7 +197,7 @@ namespace OpenIoT.Lib.Board.Protocol
                         }
 
                         foreach (IOpenIoTProtocolEvents eventHandler in this.EventHandlers)
-                            eventHandler.onDevicePropertiesReceived(this, properties);
+                            eventHandler.OnDevicePropertiesReceived(this, properties);
 
                         break;
                     }
@@ -201,7 +205,7 @@ namespace OpenIoT.Lib.Board.Protocol
                 case ResponseCode_UploadSchemeLogic:
                     {
                         foreach (IOpenIoTProtocolEvents eventHandler in this.EventHandlers)
-                            eventHandler.onSchemeLogicUploaded(this);
+                            eventHandler.OnSchemeLogicUploaded(this);
 
                         break;
                     }
@@ -209,7 +213,7 @@ namespace OpenIoT.Lib.Board.Protocol
                 case ResponseCode_UploadProgramLogic:
                     {
                         foreach (IOpenIoTProtocolEvents eventHandler in this.EventHandlers)
-                            eventHandler.onProgramLogicUploaded(this);
+                            eventHandler.OnProgramLogicUploaded(this);
 
                         break;
                     }
@@ -217,7 +221,7 @@ namespace OpenIoT.Lib.Board.Protocol
                 case ResponseCode_ResetLogic:
                     {
                         foreach (IOpenIoTProtocolEvents eventHandler in this.EventHandlers)
-                            eventHandler.onResetLogic(this);
+                            eventHandler.OnResetLogic(this);
 
                         if (this.logicResetTaskSource != null)
                             this.logicResetTaskSource.SetResult(true);
@@ -228,7 +232,15 @@ namespace OpenIoT.Lib.Board.Protocol
                 case ResponseCode_Reset:
                     {
                         foreach (IOpenIoTProtocolEvents eventHandler in this.EventHandlers)
-                            eventHandler.onReset(this);
+                            eventHandler.OnReset(this);
+
+                        break;
+                    }
+
+                case ResponseCode_ExecuteCommand:
+                    {
+                        foreach (IOpenIoTProtocolEvents eventHandler in this.EventHandlers)
+                            eventHandler.OnCommandExecuted(this);
 
                         break;
                     }
@@ -240,44 +252,44 @@ namespace OpenIoT.Lib.Board.Protocol
             return true;
         }
 
-        public void uploadSchemeLogic(byte[] code)
+        public void UploadSchemeLogic(byte[] code)
         {
             this.SendCommand(CommandCode_UploadSchemeLogic, code);
         }
 
-        public void uploadProgramLogic(byte[] code)
+        public void UploadProgramLogic(byte[] code)
         {
             this.SendCommand(CommandCode_UploadProgramLogic, code);
         }
 
-        public void resetLogic()
+        public void ResetLogic()
         {
             this.SendCommand(CommandCode_ResetLogic);
         }
 
         TaskCompletionSource<bool> logicResetTaskSource;
-        public Task resetLogicAsync()
+        public Task ResetLogicAsync()
         {
             this.logicResetTaskSource = new TaskCompletionSource<bool>();
             
-            this.resetLogic();
+            this.ResetLogic();
 
             return this.logicResetTaskSource.Task;
         }
 
-        public void reset()
+        public void Reset()
         {
             this.SendCommand(CommandCode_Reset);
         }
 
-        public void requestDeviceName()
+        public void RequestDeviceName()
         {
-            this.requestDeviceProperties(DevicePropertyId_Name);
+            this.RequestDeviceProperties(DevicePropertyId_Name);
         }
 
-        public void requestAllDeviceProperties()
+        public void RequestAllDeviceProperties()
         {
-            this.requestDeviceProperties(
+            this.RequestDeviceProperties(
                 DevicePropertyId_Uid,
                 DevicePropertyId_Name,
                 //DevicePropertyId_Password,
@@ -292,12 +304,12 @@ namespace OpenIoT.Lib.Board.Protocol
             );
         }
 
-        public void requestDeviceProperties(params byte[] propertyIds)
+        public void RequestDeviceProperties(params byte[] propertyIds)
         {
             this.SendCommand(CommandCode_GetDeviceProperties, propertyIds);
         }
 
-        public void requestSetDeviceName(string name)
+        public void RequestSetDeviceName(string name)
         {
             byte[] data = new byte[2 + name.Length];
             data[0] = DevicePropertyId_Name;
@@ -307,7 +319,7 @@ namespace OpenIoT.Lib.Board.Protocol
             this.SendCommand(CommandCode_SetDeviceProperties, data);
         }
 
-        public void requestSetUserId(string userId)
+        public void RequestSetUserId(string userId)
         {
             byte[] userIdBytes = GuidUtils.ToBytes(userId);
 
@@ -319,7 +331,7 @@ namespace OpenIoT.Lib.Board.Protocol
             this.SendCommand(CommandCode_SetDeviceProperties, data);
         }
 
-        public void requestSetProjectDetails(string projectId, string projectName, string userId)
+        public void RequestSetProjectDetails(string projectId, string projectName, string userId)
         {
             byte[] projectIdBytes = GuidUtils.ToBytes(projectId);
             byte[] userIdBytes = GuidUtils.ToBytes(userId);

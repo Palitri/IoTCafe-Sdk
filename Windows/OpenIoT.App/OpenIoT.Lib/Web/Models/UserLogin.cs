@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Web.Models
+namespace Palitri.OpenIoT.Web.Models
 {
     public class UserLogin
     {

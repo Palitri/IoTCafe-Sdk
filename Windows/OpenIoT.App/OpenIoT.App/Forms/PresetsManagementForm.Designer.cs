@@ -1,4 +1,4 @@
-﻿namespace OpenIoT.App.Forms
+﻿namespace Palitri.OpenIoT.App.Forms
 {
     partial class PresetsManagementForm
     {
@@ -41,7 +41,7 @@
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(150, 46);
             this.btnOk.TabIndex = 5;
-            this.btnOk.Text = global::OpenIoT.App.Resources.Ok;
+            this.btnOk.Text = global::Palitri.OpenIoT.App.Resources.Ok;
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 

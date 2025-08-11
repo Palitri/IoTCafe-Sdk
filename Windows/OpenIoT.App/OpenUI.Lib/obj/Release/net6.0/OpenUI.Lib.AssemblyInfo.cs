@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OpenUI.Lib")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4d383db468741a2367fad0fe1d8ecdb87aff3c42")]
 [assembly: System.Reflection.AssemblyProductAttribute("OpenUI.Lib")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OpenUI.Lib")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

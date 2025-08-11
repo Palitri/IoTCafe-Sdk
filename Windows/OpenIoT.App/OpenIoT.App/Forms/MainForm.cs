@@ -1,21 +1,23 @@
-using OpenIoT.App.Dialogs;
-using OpenIoT.App.Dialogs;
-using OpenIoT.Lib.Board.Api;
-using OpenIoT.Lib.Board.Models;
-using OpenIoT.Lib.Board.Protocol;
-using OpenIoT.Lib.Board.Protocol.Events;
-using OpenIoT.Lib.Board.Scanner;
-using OpenIoT.Lib.Board.Transmission;
-using OpenIoT.Lib.Board.Transmission.Com;
-using OpenIoT.Lib.Composite;
-using OpenIoT.Lib.SoftwarePeripherals;
-using OpenIoT.Lib.SoftwarePeripherals.SoftwareControls;
-using OpenIoT.Lib.Web.Api;
-using OpenIoT.Lib.Web.Models;
+using Palitri.OpenIoT.App.Dialogs;
+using Palitri.OpenIoT.App.Dialogs;
+using Palitri.OpenIoT.Board.Api;
+using Palitri.OpenIoT.Board.Models;
+using Palitri.OpenIoT.Board.Protocol;
+using Palitri.OpenIoT.Board.Protocol.Events;
+using Palitri.OpenIoT.Board.Scanner;
+using Palitri.OpenIoT.Board.Transmission;
+using Palitri.OpenIoT.Board.Transmission.Com;
+using Palitri.OpenIoT.Composite;
+using Palitri.OpenIoT.SoftwarePeripherals;
+using Palitri.OpenIoT.SoftwarePeripherals.SoftwareControls;
+using Palitri.OpenIoT.Web.Api;
+using Palitri.OpenIoT.Web.Models;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 
-namespace OpenIoT.App.Forms
+namespace Palitri.OpenIoT.App.Forms
 {
     public partial class MainForm : Form
     {
@@ -23,7 +25,7 @@ namespace OpenIoT.App.Forms
         private bool isRequestingBoardName;
         private bool isRequestingBoardInfo;
 
-        private BoardScanner scanner;
+        private OpenIoTBoardScanner scanner;
 
         public MainForm()
         {
@@ -42,7 +44,7 @@ namespace OpenIoT.App.Forms
             AppBase.Instance.Board.Handle = this.Handle;
 
 
-            this.scanner = new BoardScanner();
+            this.scanner = new OpenIoTBoardScanner();
             this.scanner.OnPortAvailable += this.OnPortAvailable;
             this.scanner.OnPortUnavailable += this.OnPortUnavailable;
             this.scanner.OnBoardAvailable += this.OnBoardAvailable;
@@ -207,10 +209,10 @@ namespace OpenIoT.App.Forms
                 MessageBox.Show(Resources.DevicePleaseConnect);
                 return;
             }
-            
+
             this.isRequestingBoardInfo = true;
-//            AppBase.Instance.Board.boardDevice.requestBoardInfo();
-            AppBase.Instance.Board.boardDevice.requestAllDeviceProperties();
+            //            AppBase.Instance.Board.boardDevice.requestBoardInfo();
+            AppBase.Instance.Board.boardDevice.RequestAllDeviceProperties();
         }
 
         private void propertiesListControl_PropertyClicked(object sender, Controls.EventHandlers.PropertyEventArgs args)
@@ -218,6 +220,10 @@ namespace OpenIoT.App.Forms
             if ((args.Property.BoardProperty.type == BoardPropertyType.Float) || (args.Property.BoardProperty.type == BoardPropertyType.Integer))
             {
                 new PropertyNumericValueDialog(args.Property).ShowDialog();
+            }
+            else if (args.Property.BoardProperty.type == BoardPropertyType.Data)
+            {
+                new PropertyDataValueDialog(args.Property).ShowDialog();
             }
             else if (args.Property.BoardProperty.type == BoardPropertyType.Bool)
             {
@@ -230,7 +236,7 @@ namespace OpenIoT.App.Forms
 
         public void onAllPropertiesInfoReceived(object sender)
         {
-            this.Invoke((MethodInvoker) delegate 
+            this.Invoke((MethodInvoker)delegate
             {
                 this.LoadPresetsMenu();
 
@@ -258,7 +264,7 @@ namespace OpenIoT.App.Forms
 
             this.isRequestingBoardInfo = false;
 
-            MessageBox.Show(String.Join(Environment.NewLine, properties.Select(p => 
+            MessageBox.Show(String.Join(Environment.NewLine, properties.Select(p =>
             {
                 string name;
                 object value;
@@ -280,7 +286,7 @@ namespace OpenIoT.App.Forms
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                AppBase.Instance.Board.boardDevice.requestSetDeviceName(dialog.Input);
+                AppBase.Instance.Board.boardDevice.RequestSetDeviceName(dialog.Input);
             }
         }
 
@@ -329,9 +335,275 @@ namespace OpenIoT.App.Forms
                 MessageBox.Show(Resources.DevicePleaseConnect);
                 return;
             }
-            
+
             this.isRequestingBoardName = true;
-            AppBase.Instance.Board.boardDevice.requestDeviceName();
+            AppBase.Instance.Board.boardDevice.RequestDeviceName();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            byte commandId = 72;
+
+            byte[] fakeData = {
+                2, // peripheralId - async
+                1, // commandCode SetNumberOfChannels
+                1, // commandSize
+                2, // numberOfChannels
+
+                2, // peripheralId - async
+                2, // commandCode SetChannelDevice
+                2, // commandSize
+                0, // channelId
+                0, // peripheralId - motor0
+
+                2, // peripheralId - async
+                2, // commandCode SetChannelDevice
+                2, // commandSize
+                1, // channelId
+                6, // peripheralId - motor1				
+
+                3, // peripheralId - async
+                1, // commandCode CommandCode_SetAsyncDevice
+                1, // commandSize
+                2, // peripheralId
+            };
+
+            AppBase.Instance.Board.boardDevice.SendCommand(commandId, fakeData);
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            byte commandId = 72;
+
+            float fakeVector1 = 2 * 200.0f;
+            byte[] fakeVector1Bytes = BitConverter.GetBytes(fakeVector1);
+            float fakeVector2 = 3 * 200.0f;
+            byte[] fakeVector2Bytes = BitConverter.GetBytes(fakeVector2);
+            float fakeVector3 = -1 * 200.0f;
+            byte[] fakeVector3Bytes = BitConverter.GetBytes(fakeVector3);
+            float fakeVector4 = -2 * 200.0f;
+            byte[] fakeVector4Bytes = BitConverter.GetBytes(fakeVector4);
+            float fakeTime = 2.0f;
+            byte[] fakeTimeBytes = BitConverter.GetBytes(fakeTime);
+
+            byte[] fakeData = new byte[]
+            {
+                2, // peripheralId - async
+                4, // commandCode SetVector
+                5, // commandSize
+                0, // channelId
+                fakeVector1Bytes[0],
+                fakeVector1Bytes[1],
+                fakeVector1Bytes[2],
+                fakeVector1Bytes[3],
+
+                2, // peripheralId - async
+                4, // commandCode SetVector
+                5, // commandSize
+                1, // channelId
+                fakeVector2Bytes[0],
+                fakeVector2Bytes[1],
+                fakeVector2Bytes[2],
+                fakeVector2Bytes[3],
+
+                2, // peripheralId - async
+                5, // commandCode Drive
+                4, // commandSize
+                fakeTimeBytes[0],
+                fakeTimeBytes[1],
+                fakeTimeBytes[2],
+                fakeTimeBytes[3],
+
+
+                2, // peripheralId - async
+                4, // commandCode SetVector
+                5, // commandSize
+                0, // channelId
+                fakeVector3Bytes[0],
+                fakeVector3Bytes[1],
+                fakeVector3Bytes[2],
+                fakeVector3Bytes[3],
+
+                2, // peripheralId - async
+                4, // commandCode SetVector
+                5, // commandSize
+                1, // channelId
+                fakeVector4Bytes[0],
+                fakeVector4Bytes[1],
+                fakeVector4Bytes[2],
+                fakeVector4Bytes[3],
+
+                2, // peripheralId - async
+                5, // commandCode Drive
+                4, // commandSize
+                fakeTimeBytes[0],
+                fakeTimeBytes[1],
+                fakeTimeBytes[2],
+                fakeTimeBytes[3],
+            };
+
+            AppBase.Instance.Board.boardDevice.SendCommand(commandId, fakeData);
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            byte commandId = 72;
+
+            float fakeSpeed = 200.0f;
+            byte[] fakeSpeedBytes = BitConverter.GetBytes(fakeSpeed);
+            float fakePos = 500.0f;
+            byte[] fakePosBytes = BitConverter.GetBytes(fakePos);
+            float fakeNegValue = -500.0f;
+            byte[] fakeNegBytes = BitConverter.GetBytes(fakeNegValue);
+            float fake0 = 0.0f;
+            byte[] fake0Bytes = BitConverter.GetBytes(fake0);
+
+            byte[] fakeData = new byte[]
+            {
+                3, // peripheralId - async
+                12, // CommandCode_Bezier
+                (1 + (3 * 2)) * 4, // commandSize
+                fakeSpeedBytes[0],
+                fakeSpeedBytes[1],
+                fakeSpeedBytes[2],
+                fakeSpeedBytes[3],
+
+                fakePosBytes[0],
+                fakePosBytes[1],
+                fakePosBytes[2],
+                fakePosBytes[3],
+                fake0Bytes[0],
+                fake0Bytes[1],
+                fake0Bytes[2],
+                fake0Bytes[3],
+
+                fakePosBytes[0],
+                fakePosBytes[1],
+                fakePosBytes[2],
+                fakePosBytes[3],
+                fakePosBytes[0],
+                fakePosBytes[1],
+                fakePosBytes[2],
+                fakePosBytes[3],
+
+                fake0Bytes[0],
+                fake0Bytes[1],
+                fake0Bytes[2],
+                fake0Bytes[3],
+                fakePosBytes[0],
+                fakePosBytes[1],
+                fakePosBytes[2],
+                fakePosBytes[3],
+            };
+
+            AppBase.Instance.Board.boardDevice.SendCommand(commandId, fakeData);
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            byte commandId = 72;
+
+            float fakeSpeed = 200.0f;
+            byte[] fakeSpeedBytes = BitConverter.GetBytes(fakeSpeed);
+            float fakeArcStart = 0.0f;
+            byte[] fakeArcStartBytes = BitConverter.GetBytes(fakeArcStart);
+            float fakeArcEnd = (float)Math.PI * 2;
+            byte[] fakeArcEndBytes = BitConverter.GetBytes(fakeArcEnd);
+            float fakeFloat0 = 0.0f;
+            byte[] fakeFloat0Bytes = BitConverter.GetBytes(fakeFloat0);
+            float fakeFloat1 = 3.0f;
+            byte[] fakeFloat1Bytes = BitConverter.GetBytes(fakeFloat1);
+
+            byte[] fakeData = new byte[]
+            {
+                3, // peripheralId - async
+                13, // CommandCode_Arc
+                (1 + 2 + 2 * 2) * 4, // commandSize
+                fakeSpeedBytes[0],
+                fakeSpeedBytes[1],
+                fakeSpeedBytes[2],
+                fakeSpeedBytes[3],
+                fakeArcStartBytes[0],
+                fakeArcStartBytes[1],
+                fakeArcStartBytes[2],
+                fakeArcStartBytes[3],
+                fakeArcEndBytes[0],
+                fakeArcEndBytes[1],
+                fakeArcEndBytes[2],
+                fakeArcEndBytes[3],
+                fakeFloat1Bytes[0],
+                fakeFloat1Bytes[1],
+                fakeFloat1Bytes[2],
+                fakeFloat1Bytes[3],
+                fakeFloat0Bytes[0],
+                fakeFloat0Bytes[1],
+                fakeFloat0Bytes[2],
+                fakeFloat0Bytes[3],
+                fakeFloat0Bytes[0],
+                fakeFloat0Bytes[1],
+                fakeFloat0Bytes[2],
+                fakeFloat0Bytes[3],
+                fakeFloat1Bytes[0],
+                fakeFloat1Bytes[1],
+                fakeFloat1Bytes[2],
+                fakeFloat1Bytes[3],
+            };
+
+            AppBase.Instance.Board.boardDevice.SendCommand(commandId, fakeData);
+        }
+
+        private void toolStripMenuItem6_Click(object sender, EventArgs e)
+        {
+            byte commandId = 72;
+
+            float fakeSpeed = 200.0f;
+            byte[] fakeSpeedBytes = BitConverter.GetBytes(fakeSpeed);
+            float fakePos = 500.0f;
+            byte[] fakePosBytes = BitConverter.GetBytes(fakePos);
+            float fakeNegValue = -500.0f;
+            byte[] fakeNegBytes = BitConverter.GetBytes(fakeNegValue);
+            float fake0 = 0.0f;
+            byte[] fake0Bytes = BitConverter.GetBytes(fake0);
+
+            byte[] fakeData = new byte[]
+            {
+                3, // peripheralId - async
+                11, // CommandCode_Polyline
+                (1 + (3 * 2)) * 4, // commandSize
+                fakeSpeedBytes[0],
+                fakeSpeedBytes[1],
+                fakeSpeedBytes[2],
+                fakeSpeedBytes[3],
+                
+                fakePosBytes[0],
+                fakePosBytes[1],
+                fakePosBytes[2],
+                fakePosBytes[3],
+                fake0Bytes[0],
+                fake0Bytes[1],
+                fake0Bytes[2],
+                fake0Bytes[3],
+                
+                fake0Bytes[0],
+                fake0Bytes[1],
+                fake0Bytes[2],
+                fake0Bytes[3],
+                fakePosBytes[0],
+                fakePosBytes[1],
+                fakePosBytes[2],
+                fakePosBytes[3],
+                
+                fakeNegBytes[0],
+                fakeNegBytes[1],
+                fakeNegBytes[2],
+                fakeNegBytes[3],
+                fakeNegBytes[0],
+                fakeNegBytes[1],
+                fakeNegBytes[2],
+                fakeNegBytes[3],
+            };
+
+            AppBase.Instance.Board.boardDevice.SendCommand(commandId, fakeData);
         }
     }
 
@@ -347,27 +619,27 @@ namespace OpenIoT.App.Forms
             this.handle = mainForm.Handle;
         }
 
-        public override void onAllPropertiesInfoReceived(object sender)
+        public override void OnAllPropertiesInfoReceived(object sender)
         {
             this.mainForm.onAllPropertiesInfoReceived(sender);
         }
 
-        public override void onSubscribedPropertyValueChanged(object sender, BoardProperty p, object oldValue)
+        public override void OnSubscribedPropertyValueChanged(object sender, BoardProperty p, object oldValue)
         {
             this.mainForm.onSubscribedPropertyValueChanged(sender, p, oldValue);
         }
 
-        public override void onInfoReceived(object sender, string info)
+        public override void OnInfoReceived(object sender, string info)
         {
             this.mainForm.onInfoReceived(sender, info);
         }
 
-        public override void onDeviceNameReceived(object sender, string name)
+        public override void OnDeviceNameReceived(object sender, string name)
         {
             this.mainForm.onDeviceNameReceived(sender, name);
         }
 
-        public override void onDevicePropertiesReceived(object sender, Dictionary<int, byte[]> properties)
+        public override void OnDevicePropertiesReceived(object sender, Dictionary<int, byte[]> properties)
         {
             this.mainForm.onDevicePropertiesReceived(sender, properties);
         }

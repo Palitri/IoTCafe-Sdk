@@ -1,26 +1,24 @@
-﻿using OpenIoT.Lib.Board.Api;
-using OpenIoT.Lib.Board.Protocol;
-using OpenIoT.Lib.Board.Protocol.Events;
-using OpenIoT.Lib.Board.Transmission.Com;
-using OpenIoT.Lib.Composite;
-using OpenIoT.Lib.Tools.Threading;
+﻿using Palitri.OpenIoT.Board.Api;
+using Palitri.OpenIoT.Board.Protocol;
+using Palitri.OpenIoT.Board.Protocol.Events;
+using Palitri.OpenIoT.Board.Transmission.Com;
+using Palitri.OpenIoT.Composite;
+using Palitri.OpenIoT.Tools.Threading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Board.Scanner
+namespace Palitri.OpenIoT.Board.Scanner
 {
-
-
     public delegate void OnPortAvailable(object sender, BoardPortEventArgs args);
     public delegate void OnPortUnavailable(object sender, BoardPortEventArgs args);
     public delegate void OnBoardAvailable(object sender, BordInfoEventArgs args);
     public delegate void OnBoardUnavailable(object sender, BordInfoEventArgs args);
 
 
-    public class BoardScanner : IDisposable
+    public class OpenIoTBoardScanner : IDisposable
     {
         public OnPortAvailable OnPortAvailable;
         public OnPortUnavailable OnPortUnavailable;
@@ -42,7 +40,7 @@ namespace OpenIoT.Lib.Board.Scanner
 
         public long Iteration { get; private set; }
 
-        public BoardScanner()
+        public OpenIoTBoardScanner()
         {
             this.Iteration = 0;
 
@@ -63,7 +61,7 @@ namespace OpenIoT.Lib.Board.Scanner
             this.scanThread.Start(false);
         }
 
-        public void ScanContinuously()
+        public void StartScanning()
         {
             if (this.scanThread != null)
                 this.scanThread.Wait();
@@ -72,7 +70,7 @@ namespace OpenIoT.Lib.Board.Scanner
             this.scanThread.Start();
         }
 
-        public void StopScan(bool wait = true)
+        public void StopScanning(bool wait = true)
         {
             this.scanThread.Terminate(wait);
         }
@@ -91,7 +89,7 @@ namespace OpenIoT.Lib.Board.Scanner
                 {
                     candidateBoard.EventHandlers.Add(new ScanBoardsEventHandler(this));
                     candidateBoard.Open();
-                    candidateBoard.requestDeviceProperties(
+                    candidateBoard.RequestDeviceProperties(
                         OpenIoTProtocol.DevicePropertyId_BoardName,
                         OpenIoTProtocol.DevicePropertyId_Name,
                         OpenIoTProtocol.DevicePropertyId_ProjectName);
@@ -122,7 +120,7 @@ namespace OpenIoT.Lib.Board.Scanner
             this.Iteration++;
         }
 
-        internal void onSearchDevicePropertiesReceived(object sender, Dictionary<int, byte[]> properties)
+        internal void OnSearchDevicePropertiesReceived(object sender, Dictionary<int, byte[]> properties)
         {
             OpenIoTBoard board = (OpenIoTBoard)sender;
             BoardScanInfo boardInfo = new BoardScanInfo(board.transmissionChannel.Name, properties);
@@ -183,22 +181,22 @@ namespace OpenIoT.Lib.Board.Scanner
 
         public void Dispose()
         {
-            this.StopScan();
+            this.StopScanning();
         }
     }
 
     internal class ScanBoardsEventHandler : OpenIoTProtocolEventsHandler
     {
-        private BoardScanner scanner;
+        private OpenIoTBoardScanner scanner;
 
-        public ScanBoardsEventHandler(BoardScanner scanner)
+        public ScanBoardsEventHandler(OpenIoTBoardScanner scanner)
         {
             this.scanner = scanner;
         }
 
-        public override void onDevicePropertiesReceived(object sender, Dictionary<int, byte[]> properties)
+        public override void OnDevicePropertiesReceived(object sender, Dictionary<int, byte[]> properties)
         {
-            this.scanner.onSearchDevicePropertiesReceived(sender, properties);
+            this.scanner.OnSearchDevicePropertiesReceived(sender, properties);
         }
     }
 }

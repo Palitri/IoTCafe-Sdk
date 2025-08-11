@@ -1,6 +1,6 @@
-﻿using OpenIoT.App.Controls.EventHandlers;
-using OpenIoT.Lib.Composite;
-using OpenIoT.Lib.Web.Models;
+﻿using Palitri.OpenIoT.App.Controls.EventHandlers;
+using Palitri.OpenIoT.Composite;
+using Palitri.OpenIoT.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.App.Controls
+namespace Palitri.OpenIoT.App.Controls
 {
     internal class PresetsListControl : Panel
     {

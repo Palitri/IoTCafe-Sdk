@@ -1,6 +1,6 @@
-﻿using OpenIoT.Lib.SoftwarePeripherals.Peripherals;
-using OpenIoT.Lib.SoftwarePeripherals.SoftwareControls;
-using OpenIoT.Lib.Web.Models.Configurations.Project;
+﻿using Palitri.OpenIoT.SoftwarePeripherals.Peripherals;
+using Palitri.OpenIoT.SoftwarePeripherals.SoftwareControls;
+using Palitri.OpenIoT.Web.Models.Configurations.Project;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace OpenIoT.Lib.SoftwarePeripherals
+namespace Palitri.OpenIoT.SoftwarePeripherals
 {
     // Consider alternate architecture with SoftwareTerminals: a collection of bindable values
     public class SoftwarePeripheralsManager

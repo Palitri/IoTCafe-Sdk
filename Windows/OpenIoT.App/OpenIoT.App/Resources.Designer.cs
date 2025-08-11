@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OpenIoT.App {
+namespace Palitri.OpenIoT.App {
     using System;
     
     

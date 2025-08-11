@@ -1,12 +1,12 @@
-﻿using OpenIoT.Lib.Board.Models;
-using OpenIoT.Lib.Web.Models.Configurations.Project;
+﻿using Palitri.OpenIoT.Board.Models;
+using Palitri.OpenIoT.Web.Models.Configurations.Project;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Composite
+namespace Palitri.OpenIoT.Composite
 {
     public class CompositeProperty
     {

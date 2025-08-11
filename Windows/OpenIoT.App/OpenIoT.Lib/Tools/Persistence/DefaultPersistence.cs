@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Tools.Persistence
+namespace Palitri.OpenIoT.Tools.Persistence
 {
     public class DefaultPersistence : IPersistence
     {

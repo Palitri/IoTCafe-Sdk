@@ -1,12 +1,12 @@
-﻿using OpenIoT.Lib.Composite;
-using OpenIoT.Lib.SoftwarePeripherals;
+﻿using Palitri.OpenIoT.Composite;
+using Palitri.OpenIoT.SoftwarePeripherals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.App.Forms
+namespace Palitri.OpenIoT.App.Forms
 {
     internal class AppBase
     {

@@ -1,6 +1,6 @@
-﻿using OpenIoT.Lib.Tools.Utils;
+﻿using Palitri.OpenIoT.Tools.Utils;
 
-namespace OpenIoT.Lib.Board.Models
+namespace Palitri.OpenIoT.Board.Models
 {
     public class BoardProperty
     {
@@ -210,7 +210,7 @@ namespace OpenIoT.Lib.Board.Models
                     {
                         int size = this.Size();
                         data[offset] = (byte)size;
-                        ArrayUtils.Copy(data, offset, (byte[])this.value, offset + 1, size);
+                        ArrayUtils.Copy((byte[])this.value, 0, data, offset + 1, size);
                         return 1 + size;
                     }
             }

@@ -1,5 +1,5 @@
-﻿using OpenIoT.Lib.Tools.Persistence;
-using OpenIoT.Lib.Web.Models;
+﻿using Palitri.OpenIoT.Tools.Persistence;
+using Palitri.OpenIoT.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Composite
+namespace Palitri.OpenIoT.Composite
 {
     public class CompositeBoardPersistence
     {

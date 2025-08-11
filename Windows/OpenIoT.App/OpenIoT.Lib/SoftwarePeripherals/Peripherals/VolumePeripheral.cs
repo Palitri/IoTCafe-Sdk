@@ -1,15 +1,15 @@
-﻿using OpenIoT.Lib.Board.Api;
-using OpenIoT.Lib.Board.Models;
-using OpenIoT.Lib.SoftwarePeripherals.SoftwareControls;
-using OpenIoT.Lib.Web.Models;
-using OpenIoT.Lib.Web.Models.Configurations.Project;
+﻿using Palitri.OpenIoT.Board.Api;
+using Palitri.OpenIoT.Board.Models;
+using Palitri.OpenIoT.SoftwarePeripherals.SoftwareControls;
+using Palitri.OpenIoT.Web.Models;
+using Palitri.OpenIoT.Web.Models.Configurations.Project;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.SoftwarePeripherals.Peripherals
+namespace Palitri.OpenIoT.SoftwarePeripherals.Peripherals
 {
     internal class VolumePeripheral : ISoftwarePeripheral
     {

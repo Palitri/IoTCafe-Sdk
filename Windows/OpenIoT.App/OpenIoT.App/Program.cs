@@ -1,6 +1,6 @@
-using OpenIoT.App.Forms;
+using Palitri.OpenIoT.App.Forms;
 
-namespace OpenIoT.App
+namespace Palitri.OpenIoT.App
 {
     internal static class Program
     {

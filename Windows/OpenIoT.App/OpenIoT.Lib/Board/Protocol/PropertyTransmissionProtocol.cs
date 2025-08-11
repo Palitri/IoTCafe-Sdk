@@ -1,13 +1,13 @@
-﻿using OpenIoT.Lib.Board.Models;
-using OpenIoT.Lib.Board.Protocol.Events;
-using OpenIoT.Lib.Tools.Utils;
+﻿using Palitri.OpenIoT.Board.Models;
+using Palitri.OpenIoT.Board.Protocol.Events;
+using Palitri.OpenIoT.Tools.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Board.Protocol
+namespace Palitri.OpenIoT.Board.Protocol
 {
     public abstract class PropertyTransmissionProtocol : CommandTransmissionProtocol
     {
@@ -68,7 +68,7 @@ namespace OpenIoT.Lib.Board.Protocol
                 case ResponseCode_Ping:
                     {
                         foreach (IPropertyTransmissionProtocolEvents eventHandler in this.EventHandlers)
-                            eventHandler.onPingBack(this, data);
+                            eventHandler.OnPingBack(this, data);
 
                         break;
                     }
@@ -79,7 +79,7 @@ namespace OpenIoT.Lib.Board.Protocol
                         string infoString = ByteUtils.ToString(data, 0, data.Length);
 
                         foreach (IPropertyTransmissionProtocolEvents eventHandler in this.EventHandlers)
-                            eventHandler.onInfoReceived(this, infoString);
+                            eventHandler.OnInfoReceived(this, infoString);
 
                         break;
                     }
@@ -98,7 +98,7 @@ namespace OpenIoT.Lib.Board.Protocol
                             this.acquisitionProperties.Add(property);
 
                             foreach (IPropertyTransmissionProtocolEvents eventHandler in this.EventHandlers)
-                                eventHandler.onPropertyInfoReceived(this, property);
+                                eventHandler.OnPropertyInfoReceived(this, property);
 
                             this.acquisitionPropertyIndex++;
                         }
@@ -110,7 +110,7 @@ namespace OpenIoT.Lib.Board.Protocol
                             this.properties = this.acquisitionProperties;
                             this.acquisitionProperties = null;
                             foreach (IPropertyTransmissionProtocolEvents eventHandler in this.EventHandlers)
-                                eventHandler.onAllPropertiesInfoReceived(this);
+                                eventHandler.OnAllPropertiesInfoReceived(this);
                         }
 
                         break;
@@ -132,7 +132,7 @@ namespace OpenIoT.Lib.Board.Protocol
                                 offset += property.SetValue(data, offset);
 
                                 foreach (IPropertyTransmissionProtocolEvents eventHandler in this.EventHandlers)
-                                    eventHandler.onSubscribedPropertyValueChanged(this, property, null);
+                                    eventHandler.OnSubscribedPropertyValueChanged(this, property, null);
                             }
                         }
 
@@ -142,7 +142,7 @@ namespace OpenIoT.Lib.Board.Protocol
                 case ResponseCode_SetPropertiesSubscription:
                     {
                         foreach (IPropertyTransmissionProtocolEvents eventHandler in this.EventHandlers)
-                            eventHandler.onPropertiesSubscriptionSet(this);
+                            eventHandler.OnPropertiesSubscriptionSet(this);
 
                         break;
                     }
@@ -150,7 +150,7 @@ namespace OpenIoT.Lib.Board.Protocol
                 case ResponseCode_ResetPropertiesSubscription:
                     {
                         foreach (IPropertyTransmissionProtocolEvents eventHandler in this.EventHandlers)
-                            eventHandler.onPropertiesChangedSubscriptionReset(this);
+                            eventHandler.OnPropertiesChangedSubscriptionReset(this);
 
                         break;
                     }
@@ -173,7 +173,7 @@ namespace OpenIoT.Lib.Board.Protocol
 
             int payloadSize = 0;
             foreach (BoardProperty p in properties)
-                payloadSize += 1 + p.Size();
+                payloadSize += 1 + p.Size() + (p.type == BoardPropertyType.Data ? 1 : 0);
 
             byte[] data = new byte[1 + payloadSize];
 
@@ -189,7 +189,7 @@ namespace OpenIoT.Lib.Board.Protocol
             this.SendCommand(CommandCode_SetPropertiesValues, data);
         }
 
-        public void requestProperties()
+        public void RequestProperties()
         {
             this.acquisitionProperties = new List<BoardProperty>();
             this.acquisitionPropertyIndex = 0;
@@ -197,12 +197,12 @@ namespace OpenIoT.Lib.Board.Protocol
         }
 
 
-        public void requestBoardInfo()
+        public void RequestBoardInfo()
         {
             this.SendCommand(CommandCode_Info);
         }
 
-        public void requestPropertiesChangedSubscription(byte[] subscriptionPropertiesIndices)
+        public void RequestPropertiesChangedSubscription(byte[] subscriptionPropertiesIndices)
         {
             int subscriptionPropertiesCount = subscriptionPropertiesIndices.Length;
             byte[] subscriptionBuffer = new byte[subscriptionPropertiesCount + 2];
@@ -214,12 +214,12 @@ namespace OpenIoT.Lib.Board.Protocol
             this.SendCommand(CommandCode_SetPropertiesSubscription, subscriptionBuffer);
         }
 
-        public void requestPropertiesChangedSubscriptionReset()
+        public void RequestPropertiesChangedSubscriptionReset()
         {
             this.SendCommand(CommandCode_ResetPropertiesSubscription);
         }
 
-        public void requestPing(byte[] data = null)
+        public void RequestPing(byte[] data = null)
         {
             this.SendCommand(CommandCode_Ping, data);
         }

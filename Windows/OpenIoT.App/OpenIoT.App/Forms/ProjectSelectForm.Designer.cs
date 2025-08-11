@@ -1,4 +1,4 @@
-﻿namespace OpenIoT.App.Forms
+﻿namespace Palitri.OpenIoT.App.Forms
 {
     partial class ProjectSelectForm
     {
@@ -55,7 +55,7 @@
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(150, 46);
             this.btnCancel.TabIndex = 1;
-            this.btnCancel.Text = global::OpenIoT.App.Resources.Cancel;
+            this.btnCancel.Text = global::Palitri.OpenIoT.App.Resources.Cancel;
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // btnOk
@@ -65,7 +65,7 @@
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(150, 46);
             this.btnOk.TabIndex = 2;
-            this.btnOk.Text = global::OpenIoT.App.Resources.Ok;
+            this.btnOk.Text = global::Palitri.OpenIoT.App.Resources.Ok;
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 

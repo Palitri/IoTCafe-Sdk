@@ -1,5 +1,5 @@
-﻿using OpenIoT.Lib.Web.Models;
-using OpenIoT.Lib.Web.Network;
+﻿using Palitri.OpenIoT.Web.Models;
+using Palitri.OpenIoT.Web.Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Web.Api
+namespace Palitri.OpenIoT.Web.Api
 {
     public class OpenIoTService
     {

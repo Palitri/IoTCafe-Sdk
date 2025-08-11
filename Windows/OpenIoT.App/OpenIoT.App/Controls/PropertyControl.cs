@@ -1,6 +1,6 @@
-﻿using OpenIoT.App.Controls.EventHandlers;
-using OpenIoT.Lib.Board.Models;
-using OpenIoT.Lib.Composite;
+﻿using Palitri.OpenIoT.App.Controls.EventHandlers;
+using Palitri.OpenIoT.Board.Models;
+using Palitri.OpenIoT.Composite;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.App.Controls
+namespace Palitri.OpenIoT.App.Controls
 {
     internal class PropertyControl : Panel
     {
@@ -71,7 +71,9 @@ namespace OpenIoT.App.Controls
 
             this.Height = (int)(this.lblName.Height * 1.5f);
 
-            if ((property?.BoardProperty.type == BoardPropertyType.Float) || (property?.BoardProperty.type == BoardPropertyType.Integer))
+            if ((property?.BoardProperty.type == BoardPropertyType.Float) ||
+                (property?.BoardProperty.type == BoardPropertyType.Integer) ||
+                (property?.BoardProperty.type == BoardPropertyType.Data))
             {
                 this.lblValue = new Label();
                 this.lblValue.Font = new Font(this.Font.FontFamily, 16);
@@ -163,8 +165,13 @@ namespace OpenIoT.App.Controls
                 this.lblValue.Text = this._property.BoardProperty.value.ToString();
                 this.lblValue.Left = this.Width - 8 - this.lblValue.Width;
 
-                if ((this.tbValue != null) &&  !this.trackBarManualChanging)
+                if ((this.tbValue != null) && !this.trackBarManualChanging)
                     this.tbValue.Value = Math.Max(Math.Min((int)((-this.Property.PeripheralProperty.Min + (this.Property?.BoardProperty.type == BoardPropertyType.Float ? (float)this.Property.BoardProperty.value : (float)((int)this.Property.BoardProperty.value))) / this.Property.PeripheralProperty.Step), this.tbValue.Maximum), this.tbValue.Minimum);
+            }
+            if ((this._property?.BoardProperty.type == BoardPropertyType.Data))
+            {
+                this.lblValue.Text = this._property.BoardProperty.GetDataString();
+                this.lblValue.Left = this.Width - 8 - this.lblValue.Width;
             }
             else if (this._property?.BoardProperty.type == BoardPropertyType.Bool)
                 this.cbValue.Checked = this._property.BoardProperty.GetBool();

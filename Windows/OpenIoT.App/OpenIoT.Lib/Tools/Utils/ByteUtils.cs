@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Tools.Utils
+namespace Palitri.OpenIoT.Tools.Utils
 {
     public class ByteUtils
     {

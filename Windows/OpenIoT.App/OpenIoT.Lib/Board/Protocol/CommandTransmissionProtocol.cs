@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Board.Protocol
+namespace Palitri.OpenIoT.Board.Protocol
 {
     public abstract class CommandTransmissionProtocol : ChunkTransmissionProtocol
     {
@@ -26,15 +26,15 @@ namespace OpenIoT.Lib.Board.Protocol
             }
         }
 
-        public void SendCommand(byte command, byte[] data = null)
+        public void SendCommand(byte command, byte[]? data = null, int size = -1, int offset = 0)
         {
-            int dataSize = data == null ? 0 : data.Length;
+            int dataSize = data == null ? 0 : size >= 0 ? size : (data.Length - offset);
 
             byte[] chunk = new byte[dataSize + 2];
             chunk[0] = command;
             chunk[1] = (byte)dataSize;
             if (dataSize > 0)
-                Array.Copy(data, 0, chunk, 2, dataSize);
+                Array.Copy(data, offset, chunk, 2, dataSize);
 
             this.SendChunk(chunk, dataSize + 2);
         }

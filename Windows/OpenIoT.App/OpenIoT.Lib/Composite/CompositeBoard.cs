@@ -1,18 +1,18 @@
-﻿using OpenIoT.Lib.Board.Api;
-using OpenIoT.Lib.Board.Models;
-using OpenIoT.Lib.Board.Protocol;
-using OpenIoT.Lib.Board.Protocol.Events;
-using OpenIoT.Lib.Board.Scanner;
-using OpenIoT.Lib.Board.Transmission;
-using OpenIoT.Lib.Board.Transmission.Com;
-using OpenIoT.Lib.SoftwarePeripherals;
-using OpenIoT.Lib.SoftwarePeripherals.SoftwareControls;
-using OpenIoT.Lib.Tools.Persistence;
-using OpenIoT.Lib.Tools.Threading;
-using OpenIoT.Lib.Tools.Utils;
-using OpenIoT.Lib.Web.Models;
-using OpenIoT.Lib.Web.Models.Configurations.Presets;
-using OpenIoT.Lib.Web.Models.Configurations.Project;
+﻿using Palitri.OpenIoT.Board.Api;
+using Palitri.OpenIoT.Board.Models;
+using Palitri.OpenIoT.Board.Protocol;
+using Palitri.OpenIoT.Board.Protocol.Events;
+using Palitri.OpenIoT.Board.Scanner;
+using Palitri.OpenIoT.Board.Transmission;
+using Palitri.OpenIoT.Board.Transmission.Com;
+using Palitri.OpenIoT.SoftwarePeripherals;
+using Palitri.OpenIoT.SoftwarePeripherals.SoftwareControls;
+using Palitri.OpenIoT.Tools.Persistence;
+using Palitri.OpenIoT.Tools.Threading;
+using Palitri.OpenIoT.Tools.Utils;
+using Palitri.OpenIoT.Web.Models;
+using Palitri.OpenIoT.Web.Models.Configurations.Presets;
+using Palitri.OpenIoT.Web.Models.Configurations.Project;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +21,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace OpenIoT.Lib.Composite
+namespace Palitri.OpenIoT.Composite
 {
     public delegate void OnConnected(CompositeBoard sender, OpenIoTBoard board);
     public delegate void OnDisconnected(CompositeBoard sender);
@@ -202,7 +202,7 @@ namespace OpenIoT.Lib.Composite
         {
             //this.boardDevice.resetLogic();
             //this.boardDevice.requestPropertiesChangedSubscriptionReset();
-            this.boardDevice.requestSetProjectDetails(this.project.ProjectId, this.project.Name, this.project.UserId);
+            this.boardDevice.RequestSetProjectDetails(this.project.ProjectId, this.project.Name, this.project.UserId);
         }
 
         public void RequestVisiblePropertiesChangeSubscription()
@@ -212,7 +212,7 @@ namespace OpenIoT.Lib.Composite
             for (int i = 0; i < visiblePropertiesCount; i++)
                 subscriptionPropertiesIndices[i] = (byte)this.visibleProperties[i].BoardProperty.index;
 
-            this.boardDevice.requestPropertiesChangedSubscription(subscriptionPropertiesIndices);
+            this.boardDevice.RequestPropertiesChangedSubscription(subscriptionPropertiesIndices);
         }
 
         private List<CompositeProperty> MergeDeviceAndConfigurationProperties()
@@ -332,7 +332,7 @@ namespace OpenIoT.Lib.Composite
 
         #region OpenIoT Events
 
-        public override void onAllPropertiesInfoReceived(object sender)
+        public override void OnAllPropertiesInfoReceived(object sender)
         {
             this.properties = this.MergeDeviceAndConfigurationProperties();
             this.visibleProperties = this.GetVisibleProperties();
@@ -340,22 +340,22 @@ namespace OpenIoT.Lib.Composite
             this.RequestVisiblePropertiesChangeSubscription();
         }
 
-        public override void onDevicePropertiesSet(object sender, Dictionary<int, byte[]> properties)
+        public override void OnDevicePropertiesSet(object sender, Dictionary<int, byte[]> properties)
         {
             if (properties.ContainsKey(OpenIoTProtocol.DevicePropertyId_ProjectUid))
             {
-                this.boardDevice.uploadSchemeLogic(this.project.GetCompiledSchemeCode());
+                this.boardDevice.UploadSchemeLogic(this.project.GetCompiledSchemeCode());
             }
         }
 
-        public override void onSchemeLogicUploaded(object sender)
+        public override void OnSchemeLogicUploaded(object sender)
         {
-            this.boardDevice.uploadProgramLogic(this.project.GetCompiledScriptCode());
+            this.boardDevice.UploadProgramLogic(this.project.GetCompiledScriptCode());
         }
 
-        public override void onProgramLogicUploaded(object sender)
+        public override void OnProgramLogicUploaded(object sender)
         {
-            this.boardDevice.requestProperties();
+            this.boardDevice.RequestProperties();
         }
 
         #endregion

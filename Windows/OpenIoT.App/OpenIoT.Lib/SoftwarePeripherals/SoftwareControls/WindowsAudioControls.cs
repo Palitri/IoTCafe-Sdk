@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.SoftwarePeripherals.SoftwareControls
+namespace Palitri.OpenIoT.SoftwarePeripherals.SoftwareControls
 {
     internal class WindowsAudioControls : IAudioControls
     {

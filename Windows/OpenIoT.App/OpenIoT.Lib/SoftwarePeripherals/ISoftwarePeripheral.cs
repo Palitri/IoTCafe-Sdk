@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.SoftwarePeripherals
+namespace Palitri.OpenIoT.SoftwarePeripherals
 {
     public interface ISoftwarePeripheral
     {

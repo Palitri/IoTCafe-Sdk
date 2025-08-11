@@ -1,11 +1,11 @@
-﻿using OpenIoT.Lib.Tools.Utils;
+﻿using Palitri.OpenIoT.Tools.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Board.Protocol
+namespace Palitri.OpenIoT.Board.Protocol
 {
     public abstract class ChunkTransmissionProtocol
     {

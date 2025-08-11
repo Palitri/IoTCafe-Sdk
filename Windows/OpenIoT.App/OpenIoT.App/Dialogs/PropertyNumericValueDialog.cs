@@ -1,5 +1,5 @@
-﻿using OpenIoT.Lib.Board.Models;
-using OpenIoT.Lib.Composite;
+﻿using Palitri.OpenIoT.Board.Models;
+using Palitri.OpenIoT.Composite;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OpenIoT.App.Dialogs
+namespace Palitri.OpenIoT.App.Dialogs
 {
     public partial class PropertyNumericValueDialog : Form
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Tools.Persistence
+namespace Palitri.OpenIoT.Tools.Persistence
 {
     public interface IPersistence
     {

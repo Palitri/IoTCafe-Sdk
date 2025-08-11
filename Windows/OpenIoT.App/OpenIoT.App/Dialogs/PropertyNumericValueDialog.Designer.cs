@@ -1,4 +1,4 @@
-﻿namespace OpenIoT.App.Dialogs
+﻿namespace Palitri.OpenIoT.App.Dialogs
 {
     partial class PropertyNumericValueDialog
     {
@@ -45,7 +45,7 @@
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(150, 90);
             this.btnCancel.TabIndex = 0;
-            this.btnCancel.Text = global::OpenIoT.App.Resources.Cancel;
+            this.btnCancel.Text = global::Palitri.OpenIoT.App.Resources.Cancel;
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -56,7 +56,7 @@
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(150, 90);
             this.btnOk.TabIndex = 1;
-            this.btnOk.Text = global::OpenIoT.App.Resources.Ok;
+            this.btnOk.Text = global::Palitri.OpenIoT.App.Resources.Ok;
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 

@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Web.Network
+namespace Palitri.OpenIoT.Web.Network
 {
     internal class NetworkRequest
     {

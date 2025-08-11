@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Board.Transmission
+namespace Palitri.OpenIoT.Board.Transmission
 {
     public interface ITransmissionChannel
     {

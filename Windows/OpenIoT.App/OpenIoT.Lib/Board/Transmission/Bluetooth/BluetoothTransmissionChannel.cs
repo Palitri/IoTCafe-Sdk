@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Board.Transmission.Bluetooth
+namespace Palitri.OpenIoT.Board.Transmission.Bluetooth
 {
     public class BluetoothTransmissionChannel
     {

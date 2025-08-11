@@ -1,11 +1,11 @@
-﻿using OpenIoT.Lib.Board.Protocol;
+﻿using Palitri.OpenIoT.Board.Protocol;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Board.Scanner
+namespace Palitri.OpenIoT.Board.Scanner
 {
     public class BoardScanInfo
     {

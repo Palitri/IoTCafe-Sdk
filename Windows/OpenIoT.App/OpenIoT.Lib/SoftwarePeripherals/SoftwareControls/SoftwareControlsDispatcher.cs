@@ -1,4 +1,4 @@
-﻿using OpenIoT.Lib.Board.Api;
+﻿using Palitri.OpenIoT.Board.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.SoftwarePeripherals.SoftwareControls
+namespace Palitri.OpenIoT.SoftwarePeripherals.SoftwareControls
 {
     public class SoftwareControlsDispatcher
     {

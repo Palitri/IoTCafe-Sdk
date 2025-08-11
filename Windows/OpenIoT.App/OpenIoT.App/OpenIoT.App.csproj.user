@@ -11,6 +11,9 @@
     <Compile Update="Dialogs\InputDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Dialogs\PropertyDataValueDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Dialogs\PropertyNumericValueDialog.cs">
       <SubType>Form</SubType>
     </Compile>

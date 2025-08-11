@@ -1,8 +1,8 @@
-﻿using OpenIoT.Lib.Board.Protocol;
-using OpenIoT.Lib.Board.Transmission;
-using OpenIoT.Lib.Tools.Threading;
+﻿using Palitri.OpenIoT.Board.Protocol;
+using Palitri.OpenIoT.Board.Transmission;
+using Palitri.OpenIoT.Tools.Threading;
 
-namespace OpenIoT.Lib.Board.Api
+namespace Palitri.OpenIoT.Board.Api
 {
     public class OpenIoTBoard : OpenIoTProtocol
     {

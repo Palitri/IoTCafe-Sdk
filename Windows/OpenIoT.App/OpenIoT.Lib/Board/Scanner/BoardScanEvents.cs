@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Board.Scanner
+namespace Palitri.OpenIoT.Board.Scanner
 {
     public class BoardPortEventArgs : EventArgs
     {

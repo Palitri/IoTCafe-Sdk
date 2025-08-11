@@ -1,5 +1,5 @@
-﻿using OpenIoT.Lib.Web.Api;
-using OpenIoT.Lib.Web.Models;
+﻿using Palitri.OpenIoT.Web.Api;
+using Palitri.OpenIoT.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OpenIoT.App.Forms
+namespace Palitri.OpenIoT.App.Forms
 {
     public partial class ProjectSelectForm : Form
     {

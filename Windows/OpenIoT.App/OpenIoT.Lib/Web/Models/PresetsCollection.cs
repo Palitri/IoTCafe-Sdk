@@ -1,4 +1,4 @@
-﻿namespace OpenIoT.Lib.Web.Models
+﻿namespace Palitri.OpenIoT.Web.Models
 {
     public class PresetsCollection : List<Preset>
     {

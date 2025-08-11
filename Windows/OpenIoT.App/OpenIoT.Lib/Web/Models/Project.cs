@@ -1,12 +1,12 @@
-﻿using OpenIoT.Lib.Tools.Utils;
-using OpenIoT.Lib.Web.Models.Configurations.Project;
+﻿using Palitri.OpenIoT.Tools.Utils;
+using Palitri.OpenIoT.Web.Models.Configurations.Project;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.Web.Models
+namespace Palitri.OpenIoT.Web.Models
 {
     public class Project
     {

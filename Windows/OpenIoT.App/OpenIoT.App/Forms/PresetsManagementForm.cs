@@ -1,6 +1,6 @@
-﻿using OpenIoT.App.Dialogs;
-using OpenIoT.Lib.Web.Api;
-using OpenIoT.Lib.Web.Models;
+﻿using Palitri.OpenIoT.App.Dialogs;
+using Palitri.OpenIoT.Web.Api;
+using Palitri.OpenIoT.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,9 +10,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static OpenIoT.App.Forms.ProjectSelectForm;
+using static Palitri.OpenIoT.App.Forms.ProjectSelectForm;
 
-namespace OpenIoT.App.Forms
+namespace Palitri.OpenIoT.App.Forms
 {
     public partial class PresetsManagementForm : Form
     {

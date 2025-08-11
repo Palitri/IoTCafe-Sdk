@@ -1,4 +1,4 @@
-﻿namespace OpenIoT.Lib.Board.Models
+﻿namespace Palitri.OpenIoT.Board.Models
 {
     public class BoardPropertyFlags
     {

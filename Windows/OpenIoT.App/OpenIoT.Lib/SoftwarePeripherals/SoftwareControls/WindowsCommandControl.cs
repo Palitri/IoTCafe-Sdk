@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIoT.Lib.SoftwarePeripherals.SoftwareControls
+namespace Palitri.OpenIoT.SoftwarePeripherals.SoftwareControls
 {
     internal class WindowsCommandControl : ICommandControl
     {
