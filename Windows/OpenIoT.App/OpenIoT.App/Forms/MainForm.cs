@@ -1,21 +1,10 @@
 using Palitri.OpenIoT.App.Dialogs;
-using Palitri.OpenIoT.App.Dialogs;
 using Palitri.OpenIoT.Board.Api;
 using Palitri.OpenIoT.Board.Models;
 using Palitri.OpenIoT.Board.Protocol;
 using Palitri.OpenIoT.Board.Protocol.Events;
 using Palitri.OpenIoT.Board.Scanner;
-using Palitri.OpenIoT.Board.Transmission;
-using Palitri.OpenIoT.Board.Transmission.Com;
 using Palitri.OpenIoT.Composite;
-using Palitri.OpenIoT.SoftwarePeripherals;
-using Palitri.OpenIoT.SoftwarePeripherals.SoftwareControls;
-using Palitri.OpenIoT.Web.Api;
-using Palitri.OpenIoT.Web.Models;
-using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography;
 
 namespace Palitri.OpenIoT.App.Forms
 {

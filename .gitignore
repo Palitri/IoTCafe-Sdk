@@ -3,3 +3,6 @@ bin
 obj
 /Windows/OpenIoT.App/OpenIoT.App.Installer/Release/OpenIoT.App.Installer.msi
 /Windows/OpenIoT.App/OpenIoT.App.Installer/Release/setup.exe
+/Windows/OpenIoT.App/OpenIoT.Lib/obj
+/Windows/OpenIoT.App/OpenUI.Lib/obj
+/Windows/OpenIoT.App/PropertyModel.Lib/obj
